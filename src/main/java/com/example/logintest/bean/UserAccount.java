@@ -4,23 +4,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserAccount {
-    public static final String GENDER_MALE = "M";
-    public static final String GENDER_FEMALE = "F";
 
     private String userName;
-    private String gender;
     private String password;
-
     private List<String> roles;
+
+    private boolean admin = false;
+
+    private int trajet = 0;
+    private float solde = 0;
 
     public UserAccount() {
 
     }
 
-    public UserAccount(String userName, String password, String gender, String... roles) {
+    public UserAccount(String userName, String password, String... roles) {
         this.userName = userName;
         this.password = password;
-        this.gender = gender;
 
         this.roles = new ArrayList<String>();
         if (roles != null) {
@@ -38,14 +38,6 @@ public class UserAccount {
         this.userName = userName;
     }
 
-    public String getGender() {
-        return gender;
-    }
-
-    public void setGender(String gender) {
-        this.gender = gender;
-    }
-
     public String getPassword() {
         return password;
     }
@@ -61,4 +53,17 @@ public class UserAccount {
     public void setRoles(List<String> roles) {
         this.roles = roles;
     }
+
+    public int getTrajet() { return trajet;    }
+
+    public void setTrajet(int trajet) { this.trajet = trajet;    }
+
+    public float getSolde() { return solde;    }
+
+    public void setSolde(float solde) {  this.solde = solde;    }
+
+    public boolean isAdmin() {        return admin;    }
+
+    public void setAdmin(boolean admin) {        this.admin = admin;    }
+
 }

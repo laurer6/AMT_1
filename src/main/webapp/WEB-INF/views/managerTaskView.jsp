@@ -28,15 +28,17 @@ Hello, This is a protected page!
 
 <body>
 
-<h2>Liste contacts</h2>
-<c:forEach items="${contacts}" var="contact" >
-    <li>${contact.nom} : ${contact.telephone}</li>
-</c:forEach>
 
 <h2>Liste utilisateurs</h2>
 <c:forEach items="${utilisateurs}" var="utilisateur" >
     <li>${utilisateur.id} : ${utilisateur.password} : ${utilisateur.login}</li>
 </c:forEach>
+
+<h2>Liste des utilisateur 2.0</h2>
+<c:forEach var= "liste" items="${listes}"  >
+    <li>${liste}</li>
+</c:forEach>
+
 
 
 

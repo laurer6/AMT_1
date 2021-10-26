@@ -16,31 +16,10 @@ import java.util.logging.Logger;
 @Stateless
 public class UtilisateurDAO implements UtilisateurDAOLocal{
 
-    //@Resource(lookup = "java:global/ContactsInMem") // pour SGBD embarqué (H2)
+
     @Resource(lookup = "jdbc/Lab1_AMT")  // pour SGBD externe
     private DataSource dataSource;
 
-    /**
-     * Création table contacts
-     *   Le datasource doit être défini et le schéma doit exister
-     *   (utilisé en phase développement seulement)
-     */
-
-    public void create() {
-        /*
-        try (
-                Connection connection = dataSource.getConnection();
-                PreparedStatement pstmt = connection.prepareStatement
-                        ("create table contacts (" +
-                                "nom varchar(20) primary key," +
-                                "telephone int," +
-                                "conjoint varchar(20) references contacts)");){
-            pstmt.executeUpdate();
-        } catch (SQLException e) {
-            Logger.getLogger(UtilisateurDAO.class.getName()).log(Level.SEVERE, null, e);
-        }
-        */
-    }
 
     /**
      * Liste de tous les contacts
@@ -56,8 +35,6 @@ public class UtilisateurDAO implements UtilisateurDAOLocal{
                 String login1 = rs.getString(2);
                 String password1 = rs.getString(3);
                 Utilisateur utilisateur1 = new Utilisateur(id1,login1,password1);
-
-
                 utilisateurs.add(utilisateur1);
             }
         } catch (SQLException e) {
@@ -106,8 +83,6 @@ public class UtilisateurDAO implements UtilisateurDAOLocal{
 
      */
 
-
-
     /**
      * Obtention d'un contact
      *   obtention du contact conjoint s'il existe
@@ -138,6 +113,5 @@ public class UtilisateurDAO implements UtilisateurDAOLocal{
          */
         return null;
     }
-
 
 }

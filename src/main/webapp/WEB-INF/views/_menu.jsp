@@ -5,8 +5,12 @@
   Time: 09:54
   To change this template use File | Settings | File Templates.
 --%>
-<a href="${pageContext.request.contextPath}/Station et emplacment">
-    Employee Task
+
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<a href="${pageContext.request.contextPath}/stationEtEmplacment">
+    Station
 </a>
 ||
 <a href="${pageContext.request.contextPath}/employeeTask">
@@ -29,5 +33,22 @@
     Logout
 </a>
 
+
 &nbsp;
-<span style="color:red">[ ${loginedUser.userName} ]</span>
+<span style="color:red">[  ${loginedUser.userName}
+
+        <c:if test = "${not empty loginedUser.userName}">
+            <c:choose>
+                <c:when test="${loginedUser.admin =='true'}">
+                        (administrateur)
+                </c:when>
+                <c:otherwise>
+                    <c:if test = "${loginedUser.trajet != 0}">
+                        TRAJET EN COURS
+                    </c:if>
+                     solde restant : ${loginedUser.solde}
+                </c:otherwise>
+            </c:choose>
+        </c:if>
+    ]</span>
+
