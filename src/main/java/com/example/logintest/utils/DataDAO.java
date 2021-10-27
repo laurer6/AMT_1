@@ -147,7 +147,7 @@ public class DataDAO {
     public static int idEmplacementLibre (List<EmplacementUtilisation> EmplacementLibre, int idStation, int idAutreEmplacementId){
 
         for(EmplacementUtilisation emp : EmplacementLibre){
-            if(emp.getStation_id() == idStation && emp.getId() != idAutreEmplacementId) return emp.getId();
+            if(emp.getStation_id() == idStation && emp.getEmplacement_id() != idAutreEmplacementId) return emp.getEmplacement_id();
         }
         return 0;
     }

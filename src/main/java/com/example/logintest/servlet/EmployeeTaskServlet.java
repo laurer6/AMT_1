@@ -1,8 +1,10 @@
 package com.example.logintest.servlet;
 
 import com.example.logintest.bean.EmplacementUtilisation;
+import com.example.logintest.bean.UserAccount;
 import com.example.logintest.bean.VehiculeUtilisation;
 import com.example.logintest.integration.*;
+import com.example.logintest.utils.AppUtils;
 import com.example.logintest.utils.DataDAO;
 import model.*;
 
@@ -55,6 +57,9 @@ public class EmployeeTaskServlet extends HttpServlet {
         List<Station> stations = stationDAO.getStations();
         request.setAttribute("stations", stations);
 
+
+
+
         List<Emplacement> emplacements = emplacementDAO.getEmplacements();
         request.setAttribute("emplacements",emplacements);
 
@@ -66,6 +71,8 @@ public class EmployeeTaskServlet extends HttpServlet {
         List<VehiculeUtilisation> vehiculeLibre = DataDAO.VehiculeLibre(vehiculesTotal);
         request.setAttribute("vehiculeLibre",vehiculeLibre);
 
+
+
         RequestDispatcher dispatcher //
                 = this.getServletContext()//
                 .getRequestDispatcher("/WEB-INF/views/employeeTaskView.jsp");
@@ -75,11 +82,11 @@ public class EmployeeTaskServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+        throws ServletException, IOException {
 
-        int numeroEmplacement1 = Integer.parseInt(request.getParameter("stationDepart"));
-        int numeroEmplacement2 = Integer.parseInt(request.getParameter("stationArrive"));
-        int numeroVoiture = Integer.parseInt(request.getParameter("voitureChoisit"));
+        int numeroStationDepart = Integer.parseInt(request.getParameter("stationDepart"));
+        int numeroStationArrive = Integer.parseInt(request.getParameter("stationArrive"));
+        int numeroVehicule = Integer.parseInt(request.getParameter("voitureChoisit"));
 
         List<Vehicule> vehicules = vehiculeDAO.getVehicule();
         List<Trajet> trajets = trajetDAO.getTrajets();
@@ -89,21 +96,53 @@ public class EmployeeTaskServlet extends HttpServlet {
         List<EmplacementUtilisation> emplacementsTotal = DataDAO.GenerationEmplacement(stations,emplacements,vehicules,trajets);
         List<EmplacementUtilisation> emplacementLibres = DataDAO.EmplacementLibre(emplacementsTotal);
 
-        int emplacementdispo1 = DataDAO.idEmplacementLibre(emplacementLibres, numeroEmplacement1, 0);
-        int emplacementdispo2 = DataDAO.idEmplacementLibre(emplacementLibres, numeroEmplacement2, emplacementdispo1);
+        int noEmplacementDepart = DataDAO.idEmplacementLibre(emplacementLibres, numeroStationDepart, 0);
+        int noEmplacementArrive = DataDAO.idEmplacementLibre(emplacementLibres, numeroStationArrive, noEmplacementDepart);
 
-        String test = "" + emplacementdispo1 + " à " + emplacementdispo2 + " vehicule " + numeroVoiture;
+        UserAccount usr = AppUtils.getLoginedUser(request.getSession());
 
-        request.setAttribute("errorMessage12", test);
+        if(noEmplacementDepart == 0 || noEmplacementArrive == 0){
+            String test;
+            if(noEmplacementDepart == 0) {
+                 test = "Pas d'emplacement pour la station de départ";
+            }
+            else {
+                test = "Pas d'emplacement pour la station de départ";
+            }
+            request.setAttribute("errorMessage12", test);
 
-      //  RequestDispatcher dispatcher //
-       //         = this.getServletContext().getRequestDispatcher("/WEB-INF/views/employeeTaskView.jsp");
+            RequestDispatcher dispatcher //
+                    = this.getServletContext().getRequestDispatcher("/WEB-INF/views/loginView.jsp");
 
-     //   dispatcher.forward(request, response);
+            dispatcher.forward(request, response);
+            return;
+        }
+
+        int userID = usr.getId();
+
+        trajetDAO.addTrajet(numeroVehicule,noEmplacementArrive,numeroStationArrive);
+
+        Trajet tr = trajetDAO.getTrajet(numeroVehicule);
+
+        String test2 = "station: "+ numeroStationDepart +" emplacement no " + noEmplacementDepart + " à station: " + numeroStationArrive +
+                " emplacement no " + noEmplacementArrive + " vehicule " + numeroVehicule + " trajet " +  tr.getId();
+        request.setAttribute("errorMessage12", test2);
+
+        // int numeroProchainTrajet = trajetDAO.getIdTrajet(trajets,numeroVehicule, noEmplacementArrive,numeroStationArrive);
+
+        //clientDAO.addTrajet(4,usr.getId());
+        //clientDAO.deleteTrajet(6);
+
+        //trajetDAO.addTrajet(4,2,2);
+
+
+        //  RequestDispatcher dispatcher //
+        //         = this.getServletContext().getRequestDispatcher("/WEB-INF/views/employeeTaskView.jsp");
+
+        //   dispatcher.forward(request, response);
         //int categoryId = Integer.parseInt(request.getParameter("emp"));
 
         //request.setAttribute("selectedCatId", categoryId);
-
 
         /*
         String adresseEmplacement = request.getParameter("adresseEmplacement");
@@ -125,8 +164,6 @@ public class EmployeeTaskServlet extends HttpServlet {
         response.sendRedirect(request.getContextPath() + "/employeeTask");
 
          */
-
-
 
         doGet(request, response);
     }

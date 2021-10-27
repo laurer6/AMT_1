@@ -8,4 +8,7 @@ import java.util.List;
 @Local
 public interface TrajetDAOLocal {
     List<Trajet> getTrajets();
+    void addTrajet( int vehiculeID, int emplacementDestination,int stationDestination);
+
+    Trajet getTrajet(int vehiculeID);
 }

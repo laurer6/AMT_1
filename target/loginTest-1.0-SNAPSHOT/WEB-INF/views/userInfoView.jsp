@@ -23,10 +23,6 @@ Password: <b>${usr.password}</b>
 <br>
 solde: <b>${usr.solde}</b>
 <br>
-User Name: <b>${usr.userName}</b>
-<br>
-User Name: <b>${usr.userName}</b>
-<br />
 
 </body>
 </html>
