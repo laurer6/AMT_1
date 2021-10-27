@@ -91,6 +91,7 @@ public class DataDAO {
                     for(Vehicule vh : vehicules){
                         if(vh.getEmplacement_id() == em.getId() && vh.getStation_id() == em.getStation_id()){
                             empl1.setOccupe(true);
+                            empl1.setVehicule(vh);
                         }
                     }
                     for(Trajet tr: trajets){
@@ -105,6 +106,7 @@ public class DataDAO {
         }
         return empL;
     }
+
 
     public static List<VehiculeUtilisation> GenerationVehicule(List<Vehicule> vehicules, List<Trajet> trajets, List<Client> clients){
 
@@ -131,6 +133,8 @@ public class DataDAO {
     return vhU;
     }
 
+
+    // pour l'affichage avec pagination dans la page station
     public static List<EmplacementLibre> ViewEmplacement(List<EmplacementLibre> emp, int offset, int noOfPage){
 
         List<EmplacementLibre> listEmp = new ArrayList<>();

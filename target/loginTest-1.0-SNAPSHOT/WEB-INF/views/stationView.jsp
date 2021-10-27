@@ -41,8 +41,26 @@ Affichage des stations
         <tr>
             <td>${emp.id}</td>
             <td>${emp.adresse}</td>
-            <td>${emp.occupe}</td>
-            <td>${emp.reserve}</td>
+            <td>${emp.vehicule.categorie} ${emp.vehicule.id}</td>
+
+            <td>
+                <c:choose>
+                    <c:when test="${emp.vehicule != null}">
+                    Occupé
+                    </c:when>
+                    <c:otherwise>
+                        <c:choose>
+                            <c:when test="${emp.reserve=='true'}">
+                                Reservé
+                            </c:when>
+                            <c:otherwise>
+                                Libre
+                            </c:otherwise>
+                        </c:choose>
+                    </c:otherwise>
+                </c:choose>
+
+            </td>
         </tr>
     </c:forEach>
 </table>

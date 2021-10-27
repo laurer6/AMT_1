@@ -1,5 +1,7 @@
 package com.example.logintest.bean;
 
+import model.Vehicule;
+
 public class EmplacementLibre {
 
     private int station_id;
@@ -8,6 +10,8 @@ public class EmplacementLibre {
     private boolean occupe = false;
     private boolean reserve = false;
     private String adresse;
+
+    private Vehicule vehicule;
 
     public EmplacementLibre() {
 
@@ -69,4 +73,13 @@ public class EmplacementLibre {
     public void setAdresse(String adresse) {
         this.adresse = adresse;
     }
+
+    public Vehicule getVehicule() {
+        return vehicule;
+    }
+
+    public void setVehicule(Vehicule vehicule) {
+        this.vehicule = vehicule;
+    }
+
 }
