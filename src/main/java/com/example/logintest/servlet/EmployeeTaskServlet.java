@@ -99,7 +99,7 @@ public class EmployeeTaskServlet extends HttpServlet {
         int noEmplacementDepart = DataDAO.idEmplacementLibre(emplacementLibres, numeroStationDepart, 0);
         int noEmplacementArrive = DataDAO.idEmplacementLibre(emplacementLibres, numeroStationArrive, noEmplacementDepart);
 
-        UserAccount usr = AppUtils.getLoginedUser(request.getSession());
+        UserAccount user = AppUtils.getLoginedUser(request.getSession());
 
         if(noEmplacementDepart == 0 || noEmplacementArrive == 0){
             String test;
@@ -118,19 +118,23 @@ public class EmployeeTaskServlet extends HttpServlet {
             return;
         }
 
-        int userID = usr.getId();
+        int userID = user.getId();
 
         trajetDAO.addTrajet(numeroVehicule,noEmplacementArrive,numeroStationArrive);
 
         Trajet tr = trajetDAO.getTrajet(numeroVehicule);
 
         String test2 = "station: "+ numeroStationDepart +" emplacement no " + noEmplacementDepart + " à station: " + numeroStationArrive +
-                " emplacement no " + noEmplacementArrive + " vehicule " + numeroVehicule + " trajet " +  tr.getId();
+                " emplacement no " + noEmplacementArrive + " vehicule " + numeroVehicule + " trajet " +  tr.getId() + " user id " + userID;
         request.setAttribute("errorMessage12", test2);
 
         // int numeroProchainTrajet = trajetDAO.getIdTrajet(trajets,numeroVehicule, noEmplacementArrive,numeroStationArrive);
 
-        //clientDAO.addTrajet(4,usr.getId());
+        clientDAO.setTrajet(tr.getId(),user.getId());
+        vehiculeDAO.setEmplacement(numeroVehicule,noEmplacementDepart,numeroStationDepart);
+
+        vehiculeDAO.setEmplacement(1,noEmplacementDepart, numeroStationDepart);
+
         //clientDAO.deleteTrajet(6);
 
         //trajetDAO.addTrajet(4,2,2);

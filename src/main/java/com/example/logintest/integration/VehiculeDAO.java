@@ -27,9 +27,9 @@ public class VehiculeDAO implements VehiculeDAOLocal {
         List<Vehicule> vehicules = new ArrayList<>();
         try (Connection connection = dataSource.getConnection();
              PreparedStatement pstmt = connection.prepareStatement(
-                     "SELECT * FROM vehicule");){
+                     "SELECT * FROM vehicule");) {
             ResultSet rs = pstmt.executeQuery();
-            while (rs.next()){
+            while (rs.next()) {
 
                 int id1 = rs.getInt(1);
                 String matricule1 = rs.getString(2);
@@ -37,15 +37,30 @@ public class VehiculeDAO implements VehiculeDAOLocal {
                 int station_id1 = rs.getInt(4);
                 String categorie1 = rs.getString(5);
 
-                Vehicule vehicule1 = new Vehicule(id1,matricule1,emplacement_id1,station_id1,categorie1);
+                Vehicule vehicule1 = new Vehicule(id1, matricule1, emplacement_id1, station_id1, categorie1);
 
                 vehicules.add(vehicule1);
             }
-        }   catch (SQLException e){
-            Logger.getLogger(VehiculeDAO.class.getName()).log(Level.SEVERE,null,e);
+        } catch (SQLException e) {
+            Logger.getLogger(VehiculeDAO.class.getName()).log(Level.SEVERE, null, e);
         }
         return vehicules;
 
 
+    }
+
+    @Override
+    public void setEmplacement(int vehiculeId, int StationId, int EmplacementID) {
+        try (
+                Connection connection = dataSource.getConnection();
+                PreparedStatement pstmt = connection.prepareStatement
+                        ("update client set emplacement_id=? and station_id=? where id =?");) {
+            pstmt.setInt(1, EmplacementID);
+            pstmt.setInt(2, StationId);
+            pstmt.setInt(3, vehiculeId);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            Logger.getLogger(ClientDAO.class.getName()).log(Level.SEVERE, null, e);
+        }
     }
 }

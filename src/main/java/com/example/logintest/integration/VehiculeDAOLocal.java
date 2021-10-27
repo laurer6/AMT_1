@@ -8,4 +8,5 @@ import java.util.List;
 @Local
 public interface VehiculeDAOLocal {
     List<Vehicule> getVehicule();
+    void setEmplacement(int id, int noEmplacementDepart, int numeroStationDepart);
 }

@@ -10,7 +10,7 @@ import java.util.List;
 @Local
 public interface ClientDAOLocal {
     List<Client> getClient();
-    void addTrajet(int trajet, int user);
+    void setTrajet(int trajet, int user);
     void deleteTrajet(int userID);
 
 }

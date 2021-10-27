@@ -41,7 +41,7 @@ public class ClientDAO implements ClientDAOLocal{
         }
 
     @Override
-        public void addTrajet(int trajetId, int userID){
+        public void setTrajet(int trajetId, int userID){
             try(
                     Connection connection = dataSource.getConnection();
                     PreparedStatement pstmt = connection.prepareStatement
@@ -55,7 +55,7 @@ public class ClientDAO implements ClientDAOLocal{
 
 
         }
-    @Override
+
         public void deleteTrajet(int userID) {
             try (
                     Connection connection = dataSource.getConnection();
