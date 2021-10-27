@@ -1,6 +1,6 @@
 package com.example.logintest.servlet;
 
-import com.example.logintest.bean.EmplacementLibre;
+import com.example.logintest.bean.EmplacementUtilisation;
 import com.example.logintest.bean.VehiculeUtilisation;
 import com.example.logintest.integration.*;
 import com.example.logintest.utils.DataDAO;
@@ -10,7 +10,6 @@ import java.io.IOException;
 import java.util.List;
 
 import javax.inject.Inject;
-import javax.management.StandardEmitterMBean;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -59,11 +58,13 @@ public class EmployeeTaskServlet extends HttpServlet {
         List<Emplacement> emplacements = emplacementDAO.getEmplacements();
         request.setAttribute("emplacements",emplacements);
 
-        List<EmplacementLibre> emplacementLibres = DataDAO.GenerationEmplacement(stations,emplacements,vehicules,trajets);
+        List<EmplacementUtilisation> emplacementsTotal = DataDAO.GenerationEmplacement(stations,emplacements,vehicules,trajets);
+        List<EmplacementUtilisation> emplacementLibres = DataDAO.EmplacementLibre(emplacementsTotal);
         request.setAttribute("emplacementsLibres",emplacementLibres);
 
-        List<VehiculeUtilisation> vehiculeUtilisations = DataDAO.GenerationVehicule(vehicules,trajets,clients);
-        request.setAttribute("vehiculeUtilisations",vehiculeUtilisations);
+        List<VehiculeUtilisation> vehiculesTotal = DataDAO.GenerationVehicule(vehicules,trajets,clients);
+        List<VehiculeUtilisation> vehiculeLibre = DataDAO.VehiculeLibre(vehiculesTotal);
+        request.setAttribute("vehiculeLibre",vehiculeLibre);
 
         RequestDispatcher dispatcher //
                 = this.getServletContext()//
@@ -76,11 +77,22 @@ public class EmployeeTaskServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        int numeroEmplacement1 = Integer.parseInt(request.getParameter("emplacementDepart"));
-        int numeroEmplacement2 = Integer.parseInt(request.getParameter("emplacementArrive"));
+        int numeroEmplacement1 = Integer.parseInt(request.getParameter("stationDepart"));
+        int numeroEmplacement2 = Integer.parseInt(request.getParameter("stationArrive"));
         int numeroVoiture = Integer.parseInt(request.getParameter("voitureChoisit"));
 
-        String test = "" + numeroEmplacement1 + " à " + numeroEmplacement2 + " vehicule " + numeroVoiture;
+        List<Vehicule> vehicules = vehiculeDAO.getVehicule();
+        List<Trajet> trajets = trajetDAO.getTrajets();
+        List<Station> stations = stationDAO.getStations();
+        List<Emplacement> emplacements = emplacementDAO.getEmplacements();
+
+        List<EmplacementUtilisation> emplacementsTotal = DataDAO.GenerationEmplacement(stations,emplacements,vehicules,trajets);
+        List<EmplacementUtilisation> emplacementLibres = DataDAO.EmplacementLibre(emplacementsTotal);
+
+        int emplacementdispo1 = DataDAO.idEmplacementLibre(emplacementLibres, numeroEmplacement1, 0);
+        int emplacementdispo2 = DataDAO.idEmplacementLibre(emplacementLibres, numeroEmplacement2, emplacementdispo1);
+
+        String test = "" + emplacementdispo1 + " à " + emplacementdispo2 + " vehicule " + numeroVoiture;
 
         request.setAttribute("errorMessage12", test);
 

@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.example.logintest.bean.EmplacementLibre;
+import com.example.logintest.bean.EmplacementUtilisation;
 import com.example.logintest.bean.UserAccount;
 import com.example.logintest.bean.VehiculeUtilisation;
 import com.example.logintest.config.SecurityConfig;
@@ -16,32 +16,6 @@ public class DataDAO {
 
     private static final Map<String, UserAccount> mapUsers = new HashMap<String, UserAccount>();
 
-    static {
-        initUsers();
-    }
-
-    private static void initUsers() {
-
-        // This user has a role as EMPLOYEE.
-        UserAccount emp = new UserAccount("employee1", "123",  //
-                SecurityConfig.ROLE_EMPLOYEE);
-
-        // This user has 2 roles EMPLOYEE and MANAGER.
-        UserAccount mng = new UserAccount("manager1", "123",  //
-                SecurityConfig.ROLE_EMPLOYEE, SecurityConfig.ROLE_MANAGER);
-
-        mapUsers.put(emp.getUserName(), emp);
-        mapUsers.put(mng.getUserName(), mng);
-    }
-
-    // Find a User by userName and password.
-    public static UserAccount findUser(String userName, String password) {
-        UserAccount u = mapUsers.get(userName);
-        if (u != null && u.getPassword().equals(password)) {
-            return u;
-        }
-        return null;
-    }
 
     // Find a User by userName and password.
 
@@ -50,12 +24,11 @@ public class DataDAO {
 
         for(Utilisateur ut : utilisateurs){
             if(ut.getPassword().equals(password) && ut.getLogin().equals(userName)){
-               // u.setUserName(ut.getLogin());
-               // u.setPassword(ut.getPassword());
+
                 u = new UserAccount(ut.getLogin(),ut.getPassword(),SecurityConfig.ROLE_EMPLOYEE);
                 for(Administrateur ad : administrateurs){
                     if(ad.getUtilisateur_id() == ut.getId()){
-                        // ut.setAdmin(true);
+
                         u = new UserAccount(ut.getLogin(), ut.getPassword(),  //
                                 SecurityConfig.ROLE_EMPLOYEE, SecurityConfig.ROLE_MANAGER);
                         u.setAdmin(true);
@@ -67,6 +40,7 @@ public class DataDAO {
                         u.setTrajet(cl.getTrajet_id());
                     }
                 }
+                u.setId(ut.getId());
                 return u;
             }
         }
@@ -74,15 +48,16 @@ public class DataDAO {
         return null;
     }
 
+    //Genére une liste d'emplacement avec tout les détail nécessaire, grâce à toute les listes dérivées des tables SQL
 
-    public static List<EmplacementLibre> GenerationEmplacement(List<Station> stations, List<Emplacement> emplacements,List<Vehicule> vehicules, List<Trajet> trajets){
+    public static List<EmplacementUtilisation> GenerationEmplacement(List<Station> stations, List<Emplacement> emplacements, List<Vehicule> vehicules, List<Trajet> trajets){
 
-        List<EmplacementLibre> empL = new ArrayList<>();
+        List<EmplacementUtilisation> empL = new ArrayList<>();
 
         int i = 0;
         for(Station st: stations){
             for(Emplacement em : emplacements){
-                EmplacementLibre empl1 = new EmplacementLibre();
+                EmplacementUtilisation empl1 = new EmplacementUtilisation();
                 empl1.setAdresse(st.getAdresse());
                 empl1.setStation_id(st.getId());
                 if(em.getStation_id() == st.getId()){
@@ -106,7 +81,6 @@ public class DataDAO {
         }
         return empL;
     }
-
 
     public static List<VehiculeUtilisation> GenerationVehicule(List<Vehicule> vehicules, List<Trajet> trajets, List<Client> clients){
 
@@ -133,19 +107,50 @@ public class DataDAO {
     return vhU;
     }
 
-
     // pour l'affichage avec pagination dans la page station
-    public static List<EmplacementLibre> ViewEmplacement(List<EmplacementLibre> emp, int offset, int noOfPage){
+    public static List<EmplacementUtilisation> ViewEmplacement(List<EmplacementUtilisation> emp, int offset, int noOfPage){
 
-        List<EmplacementLibre> listEmp = new ArrayList<>();
+        List<EmplacementUtilisation> listEmp = new ArrayList<>();
 
         for(int i = offset; i < offset + noOfPage; i++){
             if(i < emp.size())
             listEmp.add(emp.get(i));
         }
-
         return listEmp;
-
     }
+
+    // Retourne une liste uniquement d'emplacement libre
+    public static List<EmplacementUtilisation> EmplacementLibre(List<EmplacementUtilisation> emplacement){
+
+        List<EmplacementUtilisation> listEmp = new ArrayList<>();
+
+        for(EmplacementUtilisation emp: emplacement){
+            if(!emp.isOccupe() && !emp.isReserve()) listEmp.add(emp);
+        }
+        return listEmp;
+    }
+
+    // Retourne une liste uniquement de véhicule libre
+    public static List<VehiculeUtilisation> VehiculeLibre(List<VehiculeUtilisation> vehicule){
+
+        List<VehiculeUtilisation> listVh = new ArrayList<>();
+
+        for(VehiculeUtilisation vh : vehicule){
+            if(!vh.isReserve()){
+                listVh.add(vh);
+            }
+        }
+        return listVh;
+    }
+
+    //Retourne l'id d'un emplacement libre en raport avec la station choisit, retourne 0 si pas trouvé
+    public static int idEmplacementLibre (List<EmplacementUtilisation> EmplacementLibre, int idStation, int idAutreEmplacementId){
+
+        for(EmplacementUtilisation emp : EmplacementLibre){
+            if(emp.getStation_id() == idStation && emp.getId() != idAutreEmplacementId) return emp.getId();
+        }
+        return 0;
+    }
+
 
 }

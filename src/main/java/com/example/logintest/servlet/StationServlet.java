@@ -1,6 +1,6 @@
 package com.example.logintest.servlet;
 
-import com.example.logintest.bean.EmplacementLibre;
+import com.example.logintest.bean.EmplacementUtilisation;
 import com.example.logintest.integration.EmplacementDAOLocal;
 import com.example.logintest.integration.StationDAOLocal;
 import com.example.logintest.integration.TrajetDAOLocal;
@@ -56,7 +56,7 @@ public class StationServlet extends HttpServlet {
 
         List<String> listeComplete = new ArrayList<String>();
 
-        List<EmplacementLibre> emplacementLibres = DataDAO.GenerationEmplacement(stations,emplacements,vehicules,trajets);
+        List<EmplacementUtilisation> emplacementLibres = DataDAO.GenerationEmplacement(stations,emplacements,vehicules,trajets);
         request.setAttribute("emplacementsLibres",emplacementLibres);
 
         for(Station st : stations){
@@ -86,7 +86,7 @@ public class StationServlet extends HttpServlet {
        // List<Employee> list = dao.viewAllEmployees((page-1)*recordsPerPage,
        //         recordsPerPage);
        // int noOfRecords = dao.getNoOfRecords();
-        List<EmplacementLibre> listeEmpView = DataDAO.ViewEmplacement(emplacementLibres,(page-1)*recordsPerPage,
+        List<EmplacementUtilisation> listeEmpView = DataDAO.ViewEmplacement(emplacementLibres,(page-1)*recordsPerPage,
                         recordsPerPage);
 
         int noOfRecords = emplacementLibres.size();

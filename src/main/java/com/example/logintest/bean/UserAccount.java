@@ -8,9 +8,8 @@ public class UserAccount {
     private String userName;
     private String password;
     private List<String> roles;
-
+    private int id;
     private boolean admin = false;
-
     private int trajet = 0;
     private float solde = 0;
 
@@ -65,5 +64,9 @@ public class UserAccount {
     public boolean isAdmin() {        return admin;    }
 
     public void setAdmin(boolean admin) {        this.admin = admin;    }
+
+    public int getId() { return id;    }
+
+    public void setId(int id) { this.id = id;    }
 
 }

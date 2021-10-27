@@ -2,7 +2,7 @@ package com.example.logintest.bean;
 
 import model.Vehicule;
 
-public class EmplacementLibre {
+public class EmplacementUtilisation {
 
     private int station_id;
     private int emplacement_id;
@@ -13,11 +13,11 @@ public class EmplacementLibre {
 
     private Vehicule vehicule;
 
-    public EmplacementLibre() {
+    public EmplacementUtilisation() {
 
     }
 
-    public EmplacementLibre(int station_id, int id, boolean occupe, String adresse) {
+    public EmplacementUtilisation(int station_id, int id, boolean occupe, String adresse) {
         this.station_id = station_id;
         this.emplacement_id = id;
         this.occupe = occupe;
@@ -31,7 +31,6 @@ public class EmplacementLibre {
     public void setId(int id) {
         this.id = id;
     }
-
 
 
     public boolean isReserve() {

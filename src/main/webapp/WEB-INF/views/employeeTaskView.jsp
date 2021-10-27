@@ -26,22 +26,22 @@ Hello, This is a protected page! <br>
 
 
 <form method="post" action="${pageContext.request.contextPath}/employeeTask">
-    Select a Category:&nbsp;
-    <select name="emplacementDepart">
-        <c:forEach items="${emplacementsLibres}" var="emp">
-            <option value="${emp.id}"> ${emp.adresse} : ${emp.emplacement_id} </option>
+   Choisir la station de départ:&nbsp;
+    <select name="stationDepart">
+        <c:forEach items="${stations}" var="st">
+            <option value="${st.id}">  ${st.adresse}</option>
         </c:forEach>
     </select>
     <br/><br/>
-    <select name="emplacementArrive">
-        <c:forEach items="${emplacementsLibres}" var="emp">
-            <option value="${emp.id}"> ${emp.adresse} : ${emp.emplacement_id} </option>
+    <select name="stationArrive">
+        <c:forEach items="${stations}" var="st">
+            <option value="${st.id}">  ${st.adresse}</option>
         </c:forEach>
     </select>
     <br/><br/>
     <select name="voitureChoisit">
-        <c:forEach items="${vehiculeUtilisations}" var="veh">
-            <option value="${veh.id}"> ${veh.categorie} </option>
+        <c:forEach items="${vehiculeLibre}" var="veh">
+            <option value="${veh.id}"> ${veh.id} : ${veh.categorie} </option>
         </c:forEach>
     </select>
     <br/><br/>
