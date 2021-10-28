@@ -6,9 +6,9 @@ public class Client implements Serializable {
 
     private int utilisateur_id;
     private int trajet_id;
-    private int solde;
+    private float solde;
 
-    public Client(int utilisateur_id, int trajet_id, int solde) {
+    public Client(int utilisateur_id, int trajet_id, float solde) {
         this.utilisateur_id = utilisateur_id;
         this.trajet_id = trajet_id;
         this.solde = solde;
@@ -23,7 +23,7 @@ public class Client implements Serializable {
 
     public void setTrajet_id(int trajet_id) {  this.trajet_id = trajet_id;    }
 
-    public int getSolde() { return solde;    }
+    public float getSolde() { return solde;    }
 
-    public void setSolde(int solde) { this.solde = solde;    }
+    public void setSolde(float solde) { this.solde = solde;    }
 }

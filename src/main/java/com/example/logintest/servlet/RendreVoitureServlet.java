@@ -2,9 +2,13 @@ package com.example.logintest.servlet;
 
 import com.example.logintest.bean.UserAccount;
 import com.example.logintest.integration.ClientDAOLocal;
+import com.example.logintest.integration.PrixDAOLocal;
 import com.example.logintest.integration.TrajetDAOLocal;
 import com.example.logintest.integration.VehiculeDAOLocal;
 import com.example.logintest.utils.AppUtils;
+import com.example.logintest.utils.DataDAO;
+import model.Vehicule;
+import model.Prix;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -17,7 +21,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 @WebServlet("/rendreVoiture")
 public class RendreVoitureServlet extends HttpServlet {
@@ -31,6 +34,7 @@ public class RendreVoitureServlet extends HttpServlet {
     @Inject
     private VehiculeDAOLocal vehiculeDAO;
     @Inject
+    private PrixDAOLocal prixDAO;
 
     public RendreVoitureServlet() {
         super();
@@ -42,7 +46,6 @@ public class RendreVoitureServlet extends HttpServlet {
 
         //UserAccount usr = AppUtils.getLoginedUser(request.getSession());
         //request.setAttribute("usr",usr);
-
 
         RequestDispatcher dispatcher //
                 = this.getServletContext().getRequestDispatcher("/WEB-INF/views/rendreVoitureView.jsp");
@@ -57,8 +60,6 @@ public class RendreVoitureServlet extends HttpServlet {
 
         UserAccount user = AppUtils.getLoginedUser(request.getSession());
         request.setAttribute("user",user);
-
-
 
         String kilometre = request.getParameter("kilometre");
         String duree = request.getParameter("duree");
@@ -90,7 +91,7 @@ public class RendreVoitureServlet extends HttpServlet {
                 errors.add("La durée doit être numérique");
             }
         }
-        if(user.getTrajet() == 0){
+        if(user.getTrajetId() == 0){
                String test2 = "Pas de trajet en cours";
                errors.add(test2);
                request.setAttribute("errors", test2);
@@ -98,17 +99,43 @@ public class RendreVoitureServlet extends HttpServlet {
 
         if (errors.size() == 0) {
 
+                //String test2 = "km = " + kilometre + " duree " + duree + " trajet " + user.getTrajet().getId() + " " + user.getVehicule().getCategorie();
+                //errors.add(test2);
+                //request.setAttribute("errors", test2);
 
 
-                String test2 = "km = " + kilometre + " duree " + duree + " " + user.getTrajet();
-                errors.add(test2);
-                request.setAttribute("errors", test2);
-
-
-                vehiculeDAO.setEmplacement();
+                //Le vehicule sera à la place de destination, le trajet du client sera supprimé
+                vehiculeDAO.setEmplacement(user.getTrajet().getVehicule_id(),user.getTrajet().getDestination_emplacement_id(),
+                        user.getTrajet().getDestination_station_id());
                 clientDAO.deleteTrajet(user.getId());
-                trajetDAO.supTrajet(user.getTrajet());
-                user.setTrajet(0);
+                trajetDAO.supTrajet(user.getTrajetId());
+                user.setTrajetId(0);
+
+
+                float coutLocation = 0;
+
+                List<Vehicule> vehicules = vehiculeDAO.getVehiculeViaID();
+
+                List<Prix> prix = prixDAO.getPrix();
+
+                float prixVehicule = DataDAO.prixVehicule(prix, user.getVehicule().getCategorie());
+
+                float prixTotal = prixVehicule * km * jour;
+
+
+                String test3 = "PRIX DE MES COUILLES POUR  "+ user.getVehicule().getCategorie()  + " " + prixVehicule + " " + prixTotal;
+                errors.add(test3);
+                request.setAttribute("errors", test3);
+
+                clientDAO.setSolde( (user.getSolde()-prixTotal),user.getId());
+
+                //Client client = clientDAO.getClient(user.getId());
+                //client.setSolde(client.getSolde() - prixTotal);
+
+                user.setSolde(user.getSolde() - prixTotal);
+
+
+
 
             }
 
@@ -117,14 +144,6 @@ public class RendreVoitureServlet extends HttpServlet {
                 request.setAttribute("errors", errors);
 
         }
-
-
-
-
-
-
-
-
 
         doGet(request, response);
     }

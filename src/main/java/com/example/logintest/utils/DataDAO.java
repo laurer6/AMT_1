@@ -19,7 +19,9 @@ public class DataDAO {
 
     // Find a User by userName and password.
 
-    public static UserAccount findUser2(String userName, String password, List<Utilisateur> utilisateurs, List<Client> clients, List<Administrateur> administrateurs) {
+    public static UserAccount findUser2(String userName, String password, List<Utilisateur> utilisateurs,
+                                        List<Client> clients, List<Administrateur> administrateurs,
+                                        List<Vehicule> vehicules, List<Trajet> trajets) {
         UserAccount u = new UserAccount();
 
         for(Utilisateur ut : utilisateurs){
@@ -37,7 +39,15 @@ public class DataDAO {
                 for(Client cl : clients){
                     if(cl.getUtilisateur_id() == ut.getId()){
                         u.setSolde(cl.getSolde());
-                        u.setTrajet(cl.getTrajet_id());
+                        u.setTrajetId(cl.getTrajet_id());
+                        for(Trajet tr : trajets){
+                            if(tr.getId() == cl.getTrajet_id()) {
+                                u.setTrajet(tr);
+                                for(Vehicule vh: vehicules){
+                                    if(vh.getId() == tr.getVehicule_id()) u.setVehicule(vh);
+                                }
+                            }
+                        }
                     }
                 }
                 u.setId(ut.getId());
@@ -149,6 +159,17 @@ public class DataDAO {
         for(EmplacementUtilisation emp : EmplacementLibre){
             if(emp.getStation_id() == idStation && emp.getEmplacement_id() != idAutreEmplacementId) return emp.getEmplacement_id();
         }
+        return 0;
+    }
+
+    public static float prixVehicule (List<Prix> prix, String categorieUser){
+
+                for (Prix pr : prix) {
+                    if (pr.getCateogire().equals(categorieUser)) {
+                        return pr.getPrix1();
+                    }
+                }
+
         return 0;
     }
 

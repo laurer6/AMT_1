@@ -46,7 +46,7 @@ public class EmployeeTaskServlet extends HttpServlet {
 
         List<Utilisateur> utilisateurs = utilisateurDAO.getUtilisateurs();
 
-        List<Vehicule> vehicules = vehiculeDAO.getVehicule();
+        List<Vehicule> vehicules = vehiculeDAO.getVehiculeViaID();
         request.setAttribute("vehicules",vehicules);
 
         List<Client> clients = clientDAO.getClient();
@@ -79,7 +79,7 @@ public class EmployeeTaskServlet extends HttpServlet {
         int numeroStationArrive = Integer.parseInt(request.getParameter("stationArrive"));
         int numeroVehicule = Integer.parseInt(request.getParameter("voitureChoisit"));
 
-        List<Vehicule> vehicules = vehiculeDAO.getVehicule();
+        List<Vehicule> vehicules = vehiculeDAO.getVehiculeViaID();
         List<Trajet> trajets = trajetDAO.getTrajets();
         List<Station> stations = stationDAO.getStations();
         List<Emplacement> emplacements = emplacementDAO.getEmplacements();
@@ -98,7 +98,7 @@ public class EmployeeTaskServlet extends HttpServlet {
 
 
         }
-        else if(user.getTrajet() != 0){
+        else if(user.getTrajetId() != 0){
             String test = "Trajet déjà en cours";
             request.setAttribute("errorMessage12", test);
         }
@@ -120,16 +120,18 @@ public class EmployeeTaskServlet extends HttpServlet {
 
             trajetDAO.addTrajet(numeroVehicule, noEmplacementArrive, numeroStationArrive);
 
-            Trajet tr = trajetDAO.getTrajetViaVehicule(numeroVehicule);
+            Trajet trajet = trajetDAO.getTrajetViaVehicule(numeroVehicule);
+            Vehicule vehicule = vehiculeDAO.getVehiculeViaID(numeroVehicule);
 
             String test2 = "station: " + numeroStationDepart + " emplacement no " + noEmplacementDepart + " à station: " + numeroStationArrive +
-                    " emplacement no " + noEmplacementArrive + " vehicule " + numeroVehicule + " trajet " + tr.getId() + " user id " + userID;
+                    " emplacement no " + noEmplacementArrive + " vehicule " + numeroVehicule + " trajet " + trajet.getId() + " user id " + userID;
             request.setAttribute("errorMessage12", test2);
 
-            user.setTrajet(tr.getId()); // sinon seulement mis à jour au prochain login
-            user.setTr(tr);
+            user.setTrajetId(trajet.getId()); // sinon seulement mis à jour au prochain login
+            user.setTrajet(trajet);
+            user.setVehicule(vehicule);
 
-            clientDAO.setTrajet(tr.getId(), user.getId());
+            clientDAO.setTrajet(trajet.getId(), user.getId());
             vehiculeDAO.setEmplacement(numeroVehicule, noEmplacementDepart, numeroStationDepart);
         }
 

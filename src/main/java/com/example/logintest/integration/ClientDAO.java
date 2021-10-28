@@ -30,7 +30,7 @@ public class ClientDAO implements ClientDAOLocal{
             while (rs.next()) {
                 int utilisateur_id1 = rs.getInt(1);
                 int trajet_id1 = rs.getInt(2);
-                int solde1 = rs.getInt(3);
+                float solde1 = rs.getFloat(3);
                 Client client = new Client(utilisateur_id1,trajet_id1,solde1);
                 clients.add(client);
             }
@@ -69,6 +69,42 @@ public class ClientDAO implements ClientDAOLocal{
                 Logger.getLogger(ClientDAO.class.getName()).log(Level.SEVERE, null, e);
             }
         }
+
+    @Override
+    public void setSolde(float montant, int userID) {
+        try (
+                Connection connection = dataSource.getConnection();
+                PreparedStatement pstmt = connection.prepareStatement
+                        ("update client set solde=? where utilisateur_id =?");) {
+            pstmt.setFloat(1, montant);
+            pstmt.setInt(2, userID);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            Logger.getLogger(ClientDAO.class.getName()).log(Level.SEVERE, null, e);
+        }
+    }
+
+    @Override
+    public Client getClient(int utilisateurId) {
+        Client client = null;
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement pstmt = connection.prepareStatement(
+                     "SELECT * FROM client " +
+                             "where utilisateur_id=?");) {
+            pstmt.setInt(1,utilisateurId);
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                int utilisateur_id = rs.getInt(1);
+                int trajet_id = rs.getInt(2);
+                float solde = rs.getFloat(3);
+
+                client = new Client(utilisateur_id, trajet_id, solde);
+            }
+        } catch (SQLException e) {
+            Logger.getLogger(TrajetDAO.class.getName()).log(Level.SEVERE, null, e);
+        }
+        return client;
+    }
 
 
 }

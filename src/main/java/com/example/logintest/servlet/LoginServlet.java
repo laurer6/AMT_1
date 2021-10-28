@@ -27,10 +27,15 @@ public class LoginServlet extends HttpServlet {
     private ClientDAOLocal clientDAO;
     @Inject
     private AdministateurDAOLocal administrateurDAO;
+    @Inject
+    private TrajetDAOLocal trajetDAO;
+    @Inject
+    private VehiculeDAOLocal vehiculeDAO;
 
     public LoginServlet() {
         super();
     }
+
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -49,13 +54,15 @@ public class LoginServlet extends HttpServlet {
         List<Utilisateur> utilisateurs = utilisateurDAO.getUtilisateurs();
         List<Client> clients = clientDAO.getClient();
         List<Administrateur> administrateurs = administrateurDAO.getAdmin();
+        List<Trajet> trajets = trajetDAO.getTrajets();
+        List<Vehicule> vehicules = vehiculeDAO.getVehiculeViaID();
 
         String userName = request.getParameter("userName");
         String password = request.getParameter("password");
 
         //UserAccount userAccount = DataDAO.findUser(userName, password);
 
-        UserAccount userAccount2 = DataDAO.findUser2(userName, password, utilisateurs,clients,administrateurs);
+        UserAccount userAccount2 = DataDAO.findUser2(userName, password, utilisateurs,clients,administrateurs, vehicules,trajets);
 
         if (userAccount2 == null) {
             String errorMessage = "Invalid userName or Password";

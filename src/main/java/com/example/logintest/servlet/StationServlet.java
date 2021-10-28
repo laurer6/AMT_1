@@ -47,7 +47,7 @@ public class StationServlet extends HttpServlet {
         List<Emplacement> emplacements = emplacementDAO.getEmplacements();
         request.setAttribute("emplacements",emplacements);
 
-        List<Vehicule> vehicules = vehiculeDAO.getVehicule();
+        List<Vehicule> vehicules = vehiculeDAO.getVehiculeViaID();
         request.setAttribute("vehicules",vehicules);
 
         List<Trajet> trajets = trajetDAO.getTrajets();

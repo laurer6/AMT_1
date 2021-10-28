@@ -47,7 +47,7 @@
                         (administrateur)
                 </c:when>
                 <c:otherwise>
-                    <c:if test = "${loginedUser.trajet != 0}">
+                    <c:if test = "${loginedUser.trajetId != 0}">
                         TRAJET EN COURS
                     </c:if>
                      solde restant : ${loginedUser.solde}

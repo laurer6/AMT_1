@@ -53,7 +53,7 @@ public class ManagerTaskServlet extends HttpServlet {
         List<Trajet> trajets = trajetDAO.getTrajets();
         //request.setAttribute("trajets", trajets);
 
-        List<Vehicule> vehicules = vehiculeDAO.getVehicule();
+        List<Vehicule> vehicules = vehiculeDAO.getVehiculeViaID();
         //request.setAttribute("vehicules", vehicules);
 
 

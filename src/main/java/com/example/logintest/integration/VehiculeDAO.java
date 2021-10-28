@@ -1,6 +1,7 @@
 package com.example.logintest.integration;
 
 import model.Station;
+import model.Trajet;
 import model.Vehicule;
 
 import javax.annotation.Resource;
@@ -22,7 +23,7 @@ public class VehiculeDAO implements VehiculeDAOLocal {
     private DataSource dataSource;
 
     @Override
-    public List<Vehicule> getVehicule() {
+    public List<Vehicule> getVehiculeViaID() {
 
         List<Vehicule> vehicules = new ArrayList<>();
         try (Connection connection = dataSource.getConnection();
@@ -63,5 +64,31 @@ public class VehiculeDAO implements VehiculeDAOLocal {
             Logger.getLogger(ClientDAO.class.getName()).log(Level.SEVERE, null, e);
         }
     }
+
+    public Vehicule getVehiculeViaID(int id){
+        Vehicule vehicule = null;
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement pstmt = connection.prepareStatement(
+                     "SELECT * FROM vehicule " +
+                             "where id=?");) {
+            pstmt.setInt(1,id);
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                int id1 = rs.getInt(1);
+                String matricule1 = rs.getString(2);
+                int emplacement_id1 = rs.getInt(3);
+                int station_id1 = rs.getInt(4);
+                String categorie = rs.getString(5);
+
+                vehicule = new Vehicule(id1, matricule1, emplacement_id1, station_id1, categorie);
+
+
+            }
+        } catch (SQLException e) {
+            Logger.getLogger(ClientDAO.class.getName()).log(Level.SEVERE, null, e);
+        }
+        return vehicule;
+    }
+
 }
 

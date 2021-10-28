@@ -1,6 +1,7 @@
 package com.example.logintest.bean;
 
 import model.Trajet;
+import model.Vehicule;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,9 +13,10 @@ public class UserAccount {
     private List<String> roles;
     private int id;
     private boolean admin = false;
-    private int trajet = 0;
+    private int trajetId = 0;
     private float solde = 0;
-    private Trajet tr;
+    private Trajet trajet;
+    private Vehicule vehicule;
 
     public UserAccount() {
 
@@ -56,9 +58,9 @@ public class UserAccount {
         this.roles = roles;
     }
 
-    public int getTrajet() { return trajet;    }
+    public int getTrajetId() { return trajetId;    }
 
-    public void setTrajet(int trajet) { this.trajet = trajet;    }
+    public void setTrajetId(int trajetId) { this.trajetId = trajetId;    }
 
     public float getSolde() { return solde;    }
 
@@ -72,8 +74,12 @@ public class UserAccount {
 
     public void setId(int id) { this.id = id;    }
 
-    public Trajet getTr() { return tr;    }
+    public Trajet getTrajet() { return trajet; }
 
-    public void setTr(Trajet tr) { this.tr = tr;    }
+    public void setTrajet(Trajet trajet) { this.trajet = trajet;    }
+
+    public Vehicule getVehicule() { return vehicule;    }
+
+    public void setVehicule(Vehicule vehicule) { this.vehicule = vehicule;    }
 
 }
