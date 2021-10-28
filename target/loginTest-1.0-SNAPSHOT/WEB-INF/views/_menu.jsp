@@ -17,6 +17,10 @@
     Employee Task
 </a>
 ||
+<a href="${pageContext.request.contextPath}/rendreVoiture">
+    Rendre une Voiture
+</a>
+||
 <a href="${pageContext.request.contextPath}/managerTask">
     Manager Task
 </a>

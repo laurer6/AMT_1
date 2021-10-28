@@ -18,11 +18,14 @@
 
 <jsp:include page="_menu.jsp"></jsp:include>
 
-<h3>Employee Task</h3>
+<h3>Reserver un trajet</h3>
 
 <p style="color: red;">${errorMessage12}</p>
 
-Hello, This is a protected page! <br>
+Choisissez un station de depart, d'arrivée, ainsi qu'un véhicule </br>
+Les emplacements disponible sont automatiquement reservé </br>
+Seul les vehicules disponible sont selectionnables </br>
+Ils seront ammenés sur un emplacement à la station de départ </br></br>
 
 
 <form method="post" action="${pageContext.request.contextPath}/employeeTask">
@@ -33,6 +36,7 @@ Hello, This is a protected page! <br>
         </c:forEach>
     </select>
     <br/><br/>
+    Choisir la station d'arrivé:&nbsp;
     <select name="stationArrive">
         <c:forEach items="${stations}" var="st">
             <option value="${st.id}">  ${st.adresse}</option>
@@ -47,6 +51,24 @@ Hello, This is a protected page! <br>
     <br/><br/>
     <input type="submit" value="Submit" />
 </form>
+
+<h3>Rendre une voiture</h3>
+
+<h3>Rendre une voiture</h3>
+
+<form action="ajoute" method="post">
+    <div id="nom">
+        <label for="nom">nom</label>
+        <input type="text" name="Kilometre parcourue (km)" value="${kilometre}">
+    </div>
+    <div id="telephone">
+        <label for="telephone">téléphone</label>
+        <input type="text" name="duree d'utilisation (jours)" value="${duree}"/>
+    </div>
+    <button type="submit" name="Submit">Ajoute</button>
+</form>
+
+
 
 <%--
 <form method="post" action="${pageContext.request.contextPath}/employeeTask">

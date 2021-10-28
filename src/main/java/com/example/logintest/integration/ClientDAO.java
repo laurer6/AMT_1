@@ -56,6 +56,7 @@ public class ClientDAO implements ClientDAOLocal{
 
         }
 
+    @Override
         public void deleteTrajet(int userID) {
             try (
                     Connection connection = dataSource.getConnection();

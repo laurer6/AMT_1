@@ -12,5 +12,4 @@ public interface ClientDAOLocal {
     List<Client> getClient();
     void setTrajet(int trajet, int user);
     void deleteTrajet(int userID);
-
 }

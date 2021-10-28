@@ -9,6 +9,6 @@ import java.util.List;
 public interface TrajetDAOLocal {
     List<Trajet> getTrajets();
     void addTrajet( int vehiculeID, int emplacementDestination,int stationDestination);
-
-    Trajet getTrajet(int vehiculeID);
+    Trajet getTrajetViaVehicule(int vehiculeID);
+    void supTrajet(int id);
 }

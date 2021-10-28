@@ -50,11 +50,11 @@ public class VehiculeDAO implements VehiculeDAOLocal {
     }
 
     @Override
-    public void setEmplacement(int vehiculeId, int StationId, int EmplacementID) {
+    public void setEmplacement(int vehiculeId,  int EmplacementID, int StationId) {
         try (
                 Connection connection = dataSource.getConnection();
                 PreparedStatement pstmt = connection.prepareStatement
-                        ("update client set emplacement_id=? and station_id=? where id =?");) {
+                        ("update vehicule set emplacement_id=? , station_id=? where id =?");) {
             pstmt.setInt(1, EmplacementID);
             pstmt.setInt(2, StationId);
             pstmt.setInt(3, vehiculeId);
@@ -64,3 +64,4 @@ public class VehiculeDAO implements VehiculeDAOLocal {
         }
     }
 }
+

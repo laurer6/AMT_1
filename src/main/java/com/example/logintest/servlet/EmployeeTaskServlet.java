@@ -12,7 +12,6 @@ import java.io.IOException;
 import java.util.List;
 
 import javax.inject.Inject;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -57,9 +56,6 @@ public class EmployeeTaskServlet extends HttpServlet {
         List<Station> stations = stationDAO.getStations();
         request.setAttribute("stations", stations);
 
-
-
-
         List<Emplacement> emplacements = emplacementDAO.getEmplacements();
         request.setAttribute("emplacements",emplacements);
 
@@ -71,13 +67,8 @@ public class EmployeeTaskServlet extends HttpServlet {
         List<VehiculeUtilisation> vehiculeLibre = DataDAO.VehiculeLibre(vehiculesTotal);
         request.setAttribute("vehiculeLibre",vehiculeLibre);
 
+        request.getRequestDispatcher("/WEB-INF/views/employeeTaskView.jsp").forward(request, response);
 
-
-        RequestDispatcher dispatcher //
-                = this.getServletContext()//
-                .getRequestDispatcher("/WEB-INF/views/employeeTaskView.jsp");
-
-        dispatcher.forward(request, response);
     }
 
     @Override
@@ -101,7 +92,17 @@ public class EmployeeTaskServlet extends HttpServlet {
 
         UserAccount user = AppUtils.getLoginedUser(request.getSession());
 
-        if(noEmplacementDepart == 0 || noEmplacementArrive == 0){
+        if(user.getSolde() <= 0){
+            String test = "Solde insufisant pour reserver un trajet";
+            request.setAttribute("errorMessage12", test);
+
+
+        }
+        else if(user.getTrajet() != 0){
+            String test = "Trajet déjà en cours";
+            request.setAttribute("errorMessage12", test);
+        }
+        else if(noEmplacementDepart == 0 || noEmplacementArrive == 0){
             String test;
             if(noEmplacementDepart == 0) {
                  test = "Pas d'emplacement pour la station de départ";
@@ -111,63 +112,27 @@ public class EmployeeTaskServlet extends HttpServlet {
             }
             request.setAttribute("errorMessage12", test);
 
-            RequestDispatcher dispatcher //
-                    = this.getServletContext().getRequestDispatcher("/WEB-INF/views/loginView.jsp");
-
-            dispatcher.forward(request, response);
-            return;
-        }
-
-        int userID = user.getId();
-
-        trajetDAO.addTrajet(numeroVehicule,noEmplacementArrive,numeroStationArrive);
-
-        Trajet tr = trajetDAO.getTrajet(numeroVehicule);
-
-        String test2 = "station: "+ numeroStationDepart +" emplacement no " + noEmplacementDepart + " à station: " + numeroStationArrive +
-                " emplacement no " + noEmplacementArrive + " vehicule " + numeroVehicule + " trajet " +  tr.getId() + " user id " + userID;
-        request.setAttribute("errorMessage12", test2);
-
-        // int numeroProchainTrajet = trajetDAO.getIdTrajet(trajets,numeroVehicule, noEmplacementArrive,numeroStationArrive);
-
-        clientDAO.setTrajet(tr.getId(),user.getId());
-        vehiculeDAO.setEmplacement(numeroVehicule,noEmplacementDepart,numeroStationDepart);
-
-        vehiculeDAO.setEmplacement(1,noEmplacementDepart, numeroStationDepart);
-
-        //clientDAO.deleteTrajet(6);
-
-        //trajetDAO.addTrajet(4,2,2);
-
-
-        //  RequestDispatcher dispatcher //
-        //         = this.getServletContext().getRequestDispatcher("/WEB-INF/views/employeeTaskView.jsp");
-
-        //   dispatcher.forward(request, response);
-        //int categoryId = Integer.parseInt(request.getParameter("emp"));
-
-        //request.setAttribute("selectedCatId", categoryId);
-
-        /*
-        String adresseEmplacement = request.getParameter("adresseEmplacement");
-        String numeroEmplacement = request.getParameter("numeroEmplacement");
-
-        if(!adresseEmplacement.isEmpty() && !numeroEmplacement.isEmpty()){
-
-            String errorMessage = "KOKPOKh234 ";
-
-            request.setAttribute("errorMessage12", errorMessage);
-
-            RequestDispatcher dispatcher //
-                    = this.getServletContext().getRequestDispatcher("/WEB-INF/views/employeeTaskView.jsp");
-
-            dispatcher.forward(request, response);
 
         }
+        else {
 
-        response.sendRedirect(request.getContextPath() + "/employeeTask");
+            int userID = user.getId();
 
-         */
+            trajetDAO.addTrajet(numeroVehicule, noEmplacementArrive, numeroStationArrive);
+
+            Trajet tr = trajetDAO.getTrajetViaVehicule(numeroVehicule);
+
+            String test2 = "station: " + numeroStationDepart + " emplacement no " + noEmplacementDepart + " à station: " + numeroStationArrive +
+                    " emplacement no " + noEmplacementArrive + " vehicule " + numeroVehicule + " trajet " + tr.getId() + " user id " + userID;
+            request.setAttribute("errorMessage12", test2);
+
+            user.setTrajet(tr.getId()); // sinon seulement mis à jour au prochain login
+            user.setTr(tr);
+
+            clientDAO.setTrajet(tr.getId(), user.getId());
+            vehiculeDAO.setEmplacement(numeroVehicule, noEmplacementDepart, numeroStationDepart);
+        }
+
 
         doGet(request, response);
     }

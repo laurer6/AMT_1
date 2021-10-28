@@ -28,9 +28,6 @@ public class UserInfoServlet extends HttpServlet {
         UserAccount usr = AppUtils.getLoginedUser(request.getSession());
         request.setAttribute("usr",usr);
 
-        
-
-
         RequestDispatcher dispatcher //
                 = this.getServletContext().getRequestDispatcher("/WEB-INF/views/userInfoView.jsp");
 

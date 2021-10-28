@@ -1,5 +1,7 @@
 package com.example.logintest.bean;
 
+import model.Trajet;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,6 +14,7 @@ public class UserAccount {
     private boolean admin = false;
     private int trajet = 0;
     private float solde = 0;
+    private Trajet tr;
 
     public UserAccount() {
 
@@ -68,5 +71,9 @@ public class UserAccount {
     public int getId() { return id;    }
 
     public void setId(int id) { this.id = id;    }
+
+    public Trajet getTr() { return tr;    }
+
+    public void setTr(Trajet tr) { this.tr = tr;    }
 
 }

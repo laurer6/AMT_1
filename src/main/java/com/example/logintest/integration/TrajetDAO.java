@@ -60,9 +60,22 @@ public class TrajetDAO implements TrajetDAOLocal {
         }
     }
 
+    @Override
+    public void supTrajet(int id) {
+        try (
+                Connection connection = dataSource.getConnection();
+                PreparedStatement pstmt = connection.prepareStatement
+                        ("delete from trajet where id=?");) {
+
+            pstmt.setInt(1, id);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            Logger.getLogger(TrajetDAO.class.getName()).log(Level.SEVERE, null, e);
+        }
+    }
 
 
-    public Trajet getTrajet(int vehiculeID){
+    public Trajet getTrajetViaVehicule(int vehiculeID){
 
             Trajet trajet = null;
             try (Connection connection = dataSource.getConnection();

@@ -10,7 +10,6 @@ public class EmplacementUtilisation {
     private boolean occupe = false;
     private boolean reserve = false;
     private String adresse;
-
     private Vehicule vehicule;
 
     public EmplacementUtilisation() {
