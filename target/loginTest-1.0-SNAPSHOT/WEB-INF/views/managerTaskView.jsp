@@ -63,7 +63,7 @@ Affichage de tout les utilisateurs
             <td>
                 <c:choose>
                     <c:when test="${listes2.admin=='true'}">
-                        
+
                         <br />
                     </c:when>
                     <c:otherwise>

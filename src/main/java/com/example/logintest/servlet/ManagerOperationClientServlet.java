@@ -69,7 +69,6 @@ public class ManagerOperationClientServlet extends HttpServlet{
         List<Vehicule> vehicules = vehiculeDAO.getVehiculeViaID();
 
         List<UserAccount> listUser = DataDAO.listUtilisateursDetail(utilisateurs,clients,administrateurs,trajets,vehicules);
-        List<UserAccount> listClient = DataDAO.listClient(listUser, clients);
 
         int utilisateur_idADelete = Integer.parseInt(request.getParameter("clientNum"));
 

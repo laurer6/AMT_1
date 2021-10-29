@@ -52,43 +52,5 @@ Ils seront ammenés sur un emplacement à la station de départ </br></br>
     <input type="submit" value="Submit" />
 </form>
 
-<h3>Rendre une voiture</h3>
-
-<h3>Rendre une voiture</h3>
-
-<form action="ajoute" method="post">
-    <div id="nom">
-        <label for="nom">nom</label>
-        <input type="text" name="Kilometre parcourue (km)" value="${kilometre}">
-    </div>
-    <div id="telephone">
-        <label for="telephone">téléphone</label>
-        <input type="text" name="duree d'utilisation (jours)" value="${duree}"/>
-    </div>
-    <button type="submit" name="Submit">Ajoute</button>
-</form>
-
-
-
-<%--
-<form method="post" action="${pageContext.request.contextPath}/employeeTask">
-    Select a Category:&nbsp;
-    <select name="emplacementArrive">
-        <c:forEach items="${emplacementsLibres}" var="emp">
-            <option value="${emp.id}"> ${emp.adresse} : ${emp.emplacement_id} </option>
-        </c:forEach>
-    </select>
-    <br/><br/>
-    <input type="submit" value="Submit" />
-</form>
---%>
-
-
-
-<h2>Liste des stations</h2>
-<c:forEach items="${emplacementsLibres}" var="emp" >
-    <li>${emp.id} : ${emp.adresse} : ${emp.emplacement_id} : occupe ?${emp.occupe}: reserve ?${emp.reserve}</li>
-</c:forEach>
-
 </body>
 </html>

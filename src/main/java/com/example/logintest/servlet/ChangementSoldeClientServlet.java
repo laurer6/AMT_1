@@ -91,12 +91,6 @@ public class ChangementSoldeClientServlet extends HttpServlet {
             }
         }
 
-        /*
-        if(utilisateurChangeSolde.getSolde() > 0){
-            errors.add("Le solde du client n'est pas nul : " + utilisateurChangeSolde.getSolde());
-        }
-        */
-
         if(errors.size() == 0) {
 
             clientDAO.setSolde(solde, utilisateurChangeSolde.getId());

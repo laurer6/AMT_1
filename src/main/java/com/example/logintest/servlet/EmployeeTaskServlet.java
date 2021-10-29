@@ -44,20 +44,14 @@ public class EmployeeTaskServlet extends HttpServlet {
             throws ServletException, IOException {
 
 
-        List<Utilisateur> utilisateurs = utilisateurDAO.getUtilisateurs();
+
 
         List<Vehicule> vehicules = vehiculeDAO.getVehiculeViaID();
-        request.setAttribute("vehicules",vehicules);
-
         List<Client> clients = clientDAO.getClient();
-
         List<Trajet> trajets = trajetDAO.getTrajets();
-
         List<Station> stations = stationDAO.getStations();
-        request.setAttribute("stations", stations);
-
         List<Emplacement> emplacements = emplacementDAO.getEmplacements();
-        request.setAttribute("emplacements",emplacements);
+
 
         List<EmplacementUtilisation> emplacementsTotal = DataDAO.GenerationEmplacement(stations,emplacements,vehicules,trajets);
         List<EmplacementUtilisation> emplacementLibres = DataDAO.EmplacementLibre(emplacementsTotal);
@@ -127,7 +121,7 @@ public class EmployeeTaskServlet extends HttpServlet {
                     " emplacement no " + noEmplacementArrive + " vehicule " + numeroVehicule + " trajet " + trajet.getId() + " user id " + userID;
             request.setAttribute("errorMessage12", test2);
 
-            user.setTrajetId(trajet.getId()); // sinon seulement mis à jour au prochain login
+            user.setTrajetId(trajet.getId()); // pour le changement en temps réel
             user.setTrajet(trajet);
             user.setVehicule(vehicule);
 
