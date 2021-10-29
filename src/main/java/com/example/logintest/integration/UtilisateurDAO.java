@@ -1,5 +1,6 @@
 package com.example.logintest.integration;
 
+import model.Client;
 import model.Utilisateur;
 
 import javax.annotation.Resource;
@@ -48,70 +49,40 @@ public class UtilisateurDAO implements UtilisateurDAOLocal{
      *   (doublons encore à gérer)
      */
     public void add(Utilisateur utilisateur) {
-        /*
         try (
                 Connection connection = dataSource.getConnection();
                 PreparedStatement pstmt = connection.prepareStatement
-                        ("insert into contacts (nom,telephone) values (?,?)");){
-            pstmt.setInt(1,utilisateur.getID());
-            pstmt.setString(2,utilisateur.getLogin());
-            pstmt.setString(3,utilisateur.getPassword());
-            pstmt.executeUpdate();
-        } catch (SQLException e) {
-            Logger.getLogger(ContactDAO.class.getName()).log(Level.SEVERE, null, e);
-        }
-        */
-    }
+                        ("insert into utilisateur (login, password) values (?,?)");) {
 
-    /**
-     *  Met à jour un Contact
-     *    (mise à jour du conjoint seulement)
-     */
-    /*
-    public void updateConjoint(Utilisateur contact) {
-        try (
-                Connection connection = dataSource.getConnection();
-                PreparedStatement pstmt = connection.prepareStatement
-                        ("update contacts set conjoint=? where nom=?");){
-            pstmt.setString(1,contact.getConjoint().getNom());
-            pstmt.setString(2,contact.getNom());
+            pstmt.setString(1, utilisateur.getLogin());
+            pstmt.setString(2, utilisateur.getPassword());
             pstmt.executeUpdate();
         } catch (SQLException e) {
-            Logger.getLogger(UtilisateurDAO.class.getName()).log(Level.SEVERE, null, e);
+            Logger.getLogger(TrajetDAO.class.getName()).log(Level.SEVERE, null, e);
         }
     }
 
-     */
-
-    /**
-     * Obtention d'un contact
-     *   obtention du contact conjoint s'il existe
-     *   (contact inconnu encore à gérer)
-     */
-
-    public Utilisateur getUtilisateur(String nom) {
-        /*
+    @Override
+    public Utilisateur getUtilisateur(String login){
         Utilisateur utilisateur1 = null;
         try (Connection connection = dataSource.getConnection();
              PreparedStatement pstmt = connection.prepareStatement(
-                     "SELECT * FROM utilisateur1 c1 " +
-                             "where c1.nom=?");) {
-            pstmt.setString(1,nom);
+                     "SELECT * FROM utilisateur " +
+                             "where login=?");) {
+            pstmt.setString(1,login);
             ResultSet rs = pstmt.executeQuery();
             if (rs.next()) {
-                String login1 = rs.getString(1);
-                int id1 = rs.getInt(2);
-                String password1 = rs.getString(3);
-                utilisateur1 = new Utilisateur(id1,login1,password1);
+               int id1 = rs.getInt(1);
+               String login1 = rs.getString(2);
+               String password1 = rs.getString(3);
 
+                utilisateur1 = new Utilisateur(id1, login1, password1);
             }
         } catch (SQLException e) {
-            Logger.getLogger(ContactDAO.class.getName()).log(Level.SEVERE, null, e);
+            Logger.getLogger(TrajetDAO.class.getName()).log(Level.SEVERE, null, e);
         }
         return utilisateur1;
-
-         */
-        return null;
     }
+
 
 }

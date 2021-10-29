@@ -44,8 +44,6 @@ public class RendreVoitureServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        //UserAccount usr = AppUtils.getLoginedUser(request.getSession());
-        //request.setAttribute("usr",usr);
 
         RequestDispatcher dispatcher //
                 = this.getServletContext().getRequestDispatcher("/WEB-INF/views/rendreVoitureView.jsp");
@@ -70,7 +68,7 @@ public class RendreVoitureServlet extends HttpServlet {
         List<String> errors = new ArrayList<>();
 
         if (kilometre == null || kilometre.trim().equals("")) {
-            errors.add("Le nom doit être renseigné");
+            errors.add("Les kilometres doivent  être renseigné");
         }
         else {
             try {
@@ -81,7 +79,7 @@ public class RendreVoitureServlet extends HttpServlet {
             }
         }
         if (duree == null || duree.trim().equals("")) {
-            errors.add("Le téléphone doit être renseigné");
+            errors.add("La durée doit être renseigné");
         }
         else {
             try {
@@ -99,11 +97,6 @@ public class RendreVoitureServlet extends HttpServlet {
 
         if (errors.size() == 0) {
 
-                //String test2 = "km = " + kilometre + " duree " + duree + " trajet " + user.getTrajet().getId() + " " + user.getVehicule().getCategorie();
-                //errors.add(test2);
-                //request.setAttribute("errors", test2);
-
-
                 //Le vehicule sera à la place de destination, le trajet du client sera supprimé
                 vehiculeDAO.setEmplacement(user.getTrajet().getVehicule_id(),user.getTrajet().getDestination_emplacement_id(),
                         user.getTrajet().getDestination_station_id());
@@ -112,10 +105,6 @@ public class RendreVoitureServlet extends HttpServlet {
                 user.setTrajetId(0);
 
 
-                float coutLocation = 0;
-
-                List<Vehicule> vehicules = vehiculeDAO.getVehiculeViaID();
-
                 List<Prix> prix = prixDAO.getPrix();
 
                 float prixVehicule = DataDAO.prixVehicule(prix, user.getVehicule().getCategorie());
@@ -123,19 +112,13 @@ public class RendreVoitureServlet extends HttpServlet {
                 float prixTotal = prixVehicule * km * jour;
 
 
-                String test3 = "PRIX DE MES COUILLES POUR  "+ user.getVehicule().getCategorie()  + " " + prixVehicule + " " + prixTotal;
+                String test3 = "PRIX POUR  "+ user.getVehicule().getCategorie()  + " " + prixVehicule + " " + prixTotal;
                 errors.add(test3);
                 request.setAttribute("errors", test3);
 
                 clientDAO.setSolde( (user.getSolde()-prixTotal),user.getId());
 
-                //Client client = clientDAO.getClient(user.getId());
-                //client.setSolde(client.getSolde() - prixTotal);
-
                 user.setSolde(user.getSolde() - prixTotal);
-
-
-
 
             }
 

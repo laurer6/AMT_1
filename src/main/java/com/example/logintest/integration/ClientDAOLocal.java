@@ -14,4 +14,5 @@ public interface ClientDAOLocal {
     void deleteTrajet(int userID);
     void setSolde(float montant, int userID);
     Client getClient(int id);
+    void addClient(int id);
 }

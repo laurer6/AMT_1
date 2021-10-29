@@ -82,10 +82,7 @@ public class StationServlet extends HttpServlet {
 
         if(request.getParameter("page") != null)
             page = Integer.parseInt(request.getParameter("page"));
-       // EmployeeDAO dao = new EmployeeDAO();
-       // List<Employee> list = dao.viewAllEmployees((page-1)*recordsPerPage,
-       //         recordsPerPage);
-       // int noOfRecords = dao.getNoOfRecords();
+
         List<EmplacementUtilisation> listeEmpView = DataDAO.ViewEmplacement(emplacementLibres,(page-1)*recordsPerPage,
                         recordsPerPage);
 

@@ -106,5 +106,19 @@ public class ClientDAO implements ClientDAOLocal{
         return client;
     }
 
+    @Override
+    public void addClient(int id){
+        try (
+                Connection connection = dataSource.getConnection();
+                PreparedStatement pstmt = connection.prepareStatement
+                        ("insert into client (utilisateur_id, trajet_id, solde) values (?, null, 0)");) {
+
+            pstmt.setInt(1, id);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            Logger.getLogger(TrajetDAO.class.getName()).log(Level.SEVERE, null, e);
+        }
+    }
+
 
 }

@@ -26,18 +26,105 @@ Hello, This is a protected page!
 
 </body>
 
+
+<h3>Liste utilisateurs</h3>
+
+Affichage de tout les utilisateurs
+
+</head>
 <body>
+<table border="1" cellpadding="5" cellspacing="5">
+    <tr>
+        <th>Id</th>
+        <th>Nom</th>
+        <th>Password</th>
+        <th>Role</th>
+        <th>Solde</th>
+        <th>Vehicule en cours d'utilisation</th>
+    </tr>
+
+    <c:forEach var="listes2" items="${listes2}">
+        <tr>
+            <td>${listes2.id}</td>
+            <td>${listes2.userName}</td>
+            <td>${listes2.password}</td>
+        </tr>
+    </c:forEach>
+</table>
+
+<%--For displaying Previous link except for the 1st page --%>
+<c:if test="${currentPage != 1}">
+    <td><a href="managerTask?page=${currentPage - 1}">Previous</a></td>
+</c:if>
+
+<%--For displaying Page numbers.
+The when condition does not display a link for the current page--%>
+<table border="1" cellpadding="5" cellspacing="5">
+    <tr>
+        <c:forEach begin="1" end="${noOfPages}" var="i">
+            <c:choose>
+                <c:when test="${currentPage eq i}">
+                    <td>${i}</td>
+                </c:when>
+                <c:otherwise>
+                    <td><a href="managerTask?page=${i}">${i}</a></td>
+                </c:otherwise>
+            </c:choose>
+        </c:forEach>
+    </tr>
+</table>
+
+<%--For displaying Next link --%>
+<c:if test="${currentPage lt noOfPages}">
+    <td><a href="managerTask?page=${currentPage + 1}">Next</a></td>
+</c:if>
+
+</body>
+</br>
 
 
-<h2>Liste utilisateurs</h2>
-<c:forEach items="${utilisateurs}" var="utilisateur" >
-    <li>${utilisateur.id} : ${utilisateur.password} : ${utilisateur.login}</li>
-</c:forEach>
+<h3>Ajout d'un client</h3>
 
-<h2>Liste des utilisateur 2.0</h2>
-<c:forEach var= "liste" items="${listes}"  >
-    <li>${liste}</li>
-</c:forEach>
+<form method="POST" action="${pageContext.request.contextPath}/managerTask">
+
+    <table border="0">
+        <tr>
+            <td>userName</td>
+            <td><input type="text" name="newUsername" value= "${newUsername}" /> </td>
+        </tr>
+        <tr>
+            <td>password</td>
+            <td><input type="text" name="newPassword" value= "${newPassword}" /> </td>
+        </tr>
+        <tr>
+            <td colspan ="2">
+                <input type="submit" value= "Ajout" />
+                <a href="${pageContext.request.contextPath}/managerTask">Cancel</a>
+            </td>
+        </tr>
+    </table>
+</form>
+
+</br>
+<c:if test="${errors != null}">
+    Erreurs:
+    <ul>
+        <c:forEach items="${errors}" var="error">
+            <li>${error}</li>
+        </c:forEach>
+    </ul>
+</c:if>
+
+
+||
+<a href="${pageContext.request.contextPath}/login">
+    Supprimer Client
+</a>
+||
+<a href="${pageContext.request.contextPath}/login">
+    Changer solde client
+</a>
+
 
 
 

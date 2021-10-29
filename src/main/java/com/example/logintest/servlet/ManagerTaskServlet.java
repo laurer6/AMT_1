@@ -1,6 +1,9 @@
 package com.example.logintest.servlet;
 
+import com.example.logintest.bean.EmplacementUtilisation;
+import com.example.logintest.bean.UserAccount;
 import com.example.logintest.integration.*;
+import com.example.logintest.utils.DataDAO;
 import model.*;
 
 import java.io.IOException;
@@ -43,22 +46,15 @@ public class ManagerTaskServlet extends HttpServlet {
 
         List<Utilisateur> utilisateurs = utilisateurDAO.getUtilisateurs();
         request.setAttribute("utilisateurs", utilisateurs);
-
         List<Client> clients = clientDAO.getClient();
-        //request.setAttribute("clients", clients);
-
         List<Administrateur> administrateurs = administrateurDAO.getAdmin();
-        //request.setAttribute("administrateurs", administrateurs);
-
         List<Trajet> trajets = trajetDAO.getTrajets();
-        //request.setAttribute("trajets", trajets);
-
         List<Vehicule> vehicules = vehiculeDAO.getVehiculeViaID();
-        //request.setAttribute("vehicules", vehicules);
+
 
 
         //affichage des stations selon les consignes
-
+        /*
         List<String> listeComplete = new ArrayList<String>();
 
         for(Utilisateur ut : utilisateurs){
@@ -90,10 +86,27 @@ public class ManagerTaskServlet extends HttpServlet {
             listeComplete.add(ut.getId() + " " + admin + " " +ut.getLogin() + solde + vehicule) ;
         }
 
-
         request.setAttribute("listes",listeComplete);
 
+         */
 
+        int page = 1;
+        int recordsPerPage = 4;
+
+        if(request.getParameter("page") != null)
+            page = Integer.parseInt(request.getParameter("page"));
+
+        List<UserAccount> listUser = DataDAO.listUtilisateursDetail(utilisateurs,clients,administrateurs,trajets,vehicules);
+
+        List<UserAccount> listeUsrView = DataDAO.ViewUser(listUser,(page-1)*recordsPerPage,
+                recordsPerPage);
+
+        int noOfRecords = listUser.size();
+        int noOfPages = (int) Math.ceil(noOfRecords * 1.0 / recordsPerPage);
+
+        request.setAttribute("listes2", listeUsrView);
+        request.setAttribute("noOfPages", noOfPages);
+        request.setAttribute("currentPage", page);
 
         RequestDispatcher dispatcher //
                 = this.getServletContext()//
@@ -105,6 +118,35 @@ public class ManagerTaskServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
+        String newUserName = request.getParameter("newUsername");
+        String newPassword = request.getParameter("newPassword");
+
+        List<String> errors = new ArrayList<>();
+
+        if(newUserName == null || newUserName.trim().equals("")){
+            errors.add("Un nom d'utilisateur doit être renseigné");
+        }
+        if(newPassword == null || newPassword.trim().equals("")){
+            errors.add("Un mot de passe doit être renseigné");
+        }
+
+        if (errors.size() == 0) {
+
+            Utilisateur utilisateur = new Utilisateur(newUserName,newPassword);
+            utilisateurDAO.add(utilisateur);
+
+            //avec l'id autoincrémenté
+            utilisateur = utilisateurDAO.getUtilisateur(newUserName);
+            clientDAO.addClient(utilisateur.getId());
+
+
+        }
+        else{
+            request.setAttribute("errors", errors);
+        }
+
+
 
         doGet(request, response);
     }

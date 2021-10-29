@@ -10,6 +10,10 @@ public class Utilisateur implements Serializable{
     private String password;
     private boolean admin = false;
 
+    public Utilisateur(String login, String password) {
+        this.password = password;
+        this.login = login;
+    }
 
     public Utilisateur(int id, String login, String password) {
         this.id = id;

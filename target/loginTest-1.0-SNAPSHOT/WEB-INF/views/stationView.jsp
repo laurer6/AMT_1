@@ -10,7 +10,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,14 +17,11 @@
     <title>Station</title>
 </head>
 
-
 <jsp:include page="_menu.jsp"></jsp:include>
 
 <h3>Station</h3>
 
 Affichage des stations
-
-
 
 </head>
 <body>
@@ -92,22 +88,7 @@ The when condition does not display a link for the current page--%>
     <td><a href="stationEtEmplacment?page=${currentPage + 1}">Next</a></td>
 </c:if>
 
-<%--
-<h2>Liste des stations</h2>
-<c:forEach items="${stations}" var="station" >
-    <li>${station.id} : ${station.adresse}</li>
-</c:forEach>
 
-<h2>Liste des emplacements</h2>
-<c:forEach items="${emplacements}" var="emplacement" >
-    <li>${emplacement.id} : ${emplacement.station_id}</li>
-</c:forEach>
-
-<h2>Liste des vehicules</h2>
-<c:forEach items="${vehicules}" var="vehicule" >
-    <li>${vehicule.id} : ${vehicule.matricule} : ${vehicule.emplacement_id} : ${vehicule.station_id} : ${vehicule.categorie}</li>
-</c:forEach>
---%>
 
 <h2>Liste des stations</h2>
 <c:forEach items="${emplacementsLibres}" var="emp" >

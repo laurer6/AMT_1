@@ -19,7 +19,6 @@
 
 <jsp:include page="_menu.jsp"></jsp:include>
 
-
 <form method="POST" action="${pageContext.request.contextPath}/rendreVoiture">
 
     <table border="0">
@@ -50,21 +49,7 @@
     </ul>
 </c:if>
 
-<%--
-<h2>Ajoute detail trajet</h2>
 
-<form action="ajoute" method="post">
-    <div id="kilometre">
-        <label for="kilometre">kilometre</label>
-        <input type="text" name="km" value="${kilometre}">
-    </div>
-    <div id="duree">
-        <label for="duree">duree</label>
-        <input type="text" name="jour" value="${duree}"/>
-    </div>
-    <button type="submit" name="Submit">Ajoute</button>
-</form>
---%>
 
 </body>
 </html>

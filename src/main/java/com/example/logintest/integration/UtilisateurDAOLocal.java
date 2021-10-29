@@ -9,5 +9,5 @@ import java.util.List;
 public interface UtilisateurDAOLocal {
     List<Utilisateur> getUtilisateurs();
     void add(Utilisateur contact);
-    Utilisateur getUtilisateur(String nom);
+    Utilisateur getUtilisateur(String login);
 }

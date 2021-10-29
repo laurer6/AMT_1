@@ -92,6 +92,42 @@ public class DataDAO {
         return empL;
     }
 
+    public static List<UserAccount> listUtilisateursDetail(List<Utilisateur> utilisateurs, List<Client> clients, List<Administrateur> admin, List<Trajet> trajets,List<Vehicule> vehicules) {
+        List<UserAccount> userList = new ArrayList<>();
+
+        for(Utilisateur ut : utilisateurs){
+            UserAccount user = new UserAccount();
+            user.setId(ut.getId());
+            user.setUserName(ut.getLogin());
+            user.setPassword(ut.getPassword());
+            for(Administrateur ad: admin){
+                if(ad.getUtilisateur_id() == ut.getId()){
+                    user.setAdmin(true);
+                }
+            }
+            for(Client cl: clients){
+                if(cl.getUtilisateur_id() == ut.getId()){
+                    for(Trajet tr: trajets){
+                        if(tr.getId() == cl.getTrajet_id()){
+                            user.setTrajet(tr);
+                            for(Vehicule vh : vehicules){
+                                if(vh.getId() == tr.getVehicule_id()){
+                                    user.setVehicule(vh);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            userList.add(user);
+
+        }
+
+        return userList;
+
+
+    }
+
     public static List<VehiculeUtilisation> GenerationVehicule(List<Vehicule> vehicules, List<Trajet> trajets, List<Client> clients){
 
         List<VehiculeUtilisation> vhU = new ArrayList<>();
@@ -128,6 +164,20 @@ public class DataDAO {
         }
         return listEmp;
     }
+
+    // pour l'affichage avec pagination dans la page admin
+    public static List<UserAccount> ViewUser(List<UserAccount> usr, int offset, int noOfPage){
+
+        List<UserAccount> listUsr = new ArrayList<>();
+
+        for(int i = offset; i < offset + noOfPage; i++){
+            if(i < usr.size())
+                listUsr.add(usr.get(i));
+        }
+        return listUsr;
+    }
+
+
 
     // Retourne une liste uniquement d'emplacement libre
     public static List<EmplacementUtilisation> EmplacementLibre(List<EmplacementUtilisation> emplacement){
