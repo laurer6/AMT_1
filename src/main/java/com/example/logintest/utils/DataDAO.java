@@ -107,6 +107,7 @@ public class DataDAO {
             }
             for(Client cl: clients){
                 if(cl.getUtilisateur_id() == ut.getId()){
+                    user.setSolde(cl.getSolde());
                     for(Trajet tr: trajets){
                         if(tr.getId() == cl.getTrajet_id()){
                             user.setTrajet(tr);
@@ -175,6 +176,21 @@ public class DataDAO {
                 listUsr.add(usr.get(i));
         }
         return listUsr;
+    }
+
+    public static List<UserAccount> listClient(List<UserAccount> userTotal, List<Client> client){
+        List<UserAccount> listUsr = new ArrayList<>();
+
+        for(UserAccount usr : userTotal) {
+            for (Client cl : client) {
+                if (cl.getUtilisateur_id() == usr.getId()) listUsr.add(usr);
+            }
+        }
+
+
+        return listUsr;
+
+
     }
 
 

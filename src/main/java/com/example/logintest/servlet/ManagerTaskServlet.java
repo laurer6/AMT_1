@@ -45,50 +45,13 @@ public class ManagerTaskServlet extends HttpServlet {
 
 
         List<Utilisateur> utilisateurs = utilisateurDAO.getUtilisateurs();
-        request.setAttribute("utilisateurs", utilisateurs);
+        //request.setAttribute("utilisateurs", utilisateurs);
         List<Client> clients = clientDAO.getClient();
         List<Administrateur> administrateurs = administrateurDAO.getAdmin();
         List<Trajet> trajets = trajetDAO.getTrajets();
         List<Vehicule> vehicules = vehiculeDAO.getVehiculeViaID();
 
 
-
-        //affichage des stations selon les consignes
-        /*
-        List<String> listeComplete = new ArrayList<String>();
-
-        for(Utilisateur ut : utilisateurs){
-
-            String solde = "";
-            String admin = "";
-            String vehicule = "";
-
-            for(Administrateur ad : administrateurs){
-                if(ad.getUtilisateur_id() == ut.getId()){
-                    admin = "(Administrateur)";
-                }
-                else{
-                    for(Client cl : clients){
-                        if(cl.getUtilisateur_id() == ut.getId()) {
-                            solde = " | solde : " + cl.getSolde();
-                            for (Trajet tr : trajets) {
-                                for (Vehicule vh : vehicules) {
-                                    if (vh.getId() == tr.getVehicule_id() && cl.getTrajet_id() == tr.getId()) {
-                                        vehicule = " | vehicule en cours d'utilisation : " + vh.getCategorie();
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-
-            listeComplete.add(ut.getId() + " " + admin + " " +ut.getLogin() + solde + vehicule) ;
-        }
-
-        request.setAttribute("listes",listeComplete);
-
-         */
 
         int page = 1;
         int recordsPerPage = 4;
@@ -139,7 +102,6 @@ public class ManagerTaskServlet extends HttpServlet {
             //avec l'id autoincrémenté
             utilisateur = utilisateurDAO.getUtilisateur(newUserName);
             clientDAO.addClient(utilisateur.getId());
-
 
         }
         else{

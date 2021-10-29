@@ -52,30 +52,9 @@ public class StationServlet extends HttpServlet {
 
         List<Trajet> trajets = trajetDAO.getTrajets();
 
-        //affichage des stations selon les consignes
-
-        List<String> listeComplete = new ArrayList<String>();
 
         List<EmplacementUtilisation> emplacementLibres = DataDAO.GenerationEmplacement(stations,emplacements,vehicules,trajets);
         request.setAttribute("emplacementsLibres",emplacementLibres);
-
-        for(Station st : stations){
-            //listeComplete.add(st.getAdresse());
-
-            for (Emplacement ep : emplacements){
-                String occupe = "Libre";
-                if(ep.getStation_id() == st.getId()){
-                    for(Vehicule vh : vehicules){
-                        if(vh.getEmplacement_id() == ep.getId() && vh.getStation_id() == st.getId()){
-                            occupe = vh.getCategorie();
-                        }
-                    }
-                    listeComplete.add(st.getAdresse() + " emplacement no " + ep.getId() + " : " + occupe);
-                }
-            }
-        }
-
-        request.setAttribute("listes",listeComplete);
 
         int page = 1;
         int recordsPerPage = 10;
@@ -94,10 +73,6 @@ public class StationServlet extends HttpServlet {
         request.setAttribute("currentPage", page);
         RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/views/stationView.jsp");
         view.forward(request, response);
-
-
-
-
 
 
 

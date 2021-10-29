@@ -58,7 +58,7 @@ public class UtilisateurDAO implements UtilisateurDAOLocal{
             pstmt.setString(2, utilisateur.getPassword());
             pstmt.executeUpdate();
         } catch (SQLException e) {
-            Logger.getLogger(TrajetDAO.class.getName()).log(Level.SEVERE, null, e);
+            Logger.getLogger(UtilisateurDAO.class.getName()).log(Level.SEVERE, null, e);
         }
     }
 
@@ -79,10 +79,23 @@ public class UtilisateurDAO implements UtilisateurDAOLocal{
                 utilisateur1 = new Utilisateur(id1, login1, password1);
             }
         } catch (SQLException e) {
-            Logger.getLogger(TrajetDAO.class.getName()).log(Level.SEVERE, null, e);
+            Logger.getLogger(UtilisateurDAO.class.getName()).log(Level.SEVERE, null, e);
         }
         return utilisateur1;
     }
 
+    @Override
+    public void deleteUtilisateur(int id){
+        try (
+                Connection connection = dataSource.getConnection();
+                PreparedStatement pstmt = connection.prepareStatement
+                        ("delete from utilisateur where id=?");) {
+
+            pstmt.setInt(1, id);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            Logger.getLogger(UtilisateurDAO.class.getName()).log(Level.SEVERE, null, e);
+        }
+    }
 
 }

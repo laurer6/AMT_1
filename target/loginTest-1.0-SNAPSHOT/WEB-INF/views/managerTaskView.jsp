@@ -117,13 +117,10 @@ The when condition does not display a link for the current page--%>
 
 
 ||
-<a href="${pageContext.request.contextPath}/login">
-    Supprimer Client
+<a href="${pageContext.request.contextPath}/operationClient">
+    Changer solde client, supprimer Client
 </a>
 ||
-<a href="${pageContext.request.contextPath}/login">
-    Changer solde client
-</a>
 
 
 

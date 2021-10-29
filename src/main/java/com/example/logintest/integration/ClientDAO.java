@@ -101,7 +101,7 @@ public class ClientDAO implements ClientDAOLocal{
                 client = new Client(utilisateur_id, trajet_id, solde);
             }
         } catch (SQLException e) {
-            Logger.getLogger(TrajetDAO.class.getName()).log(Level.SEVERE, null, e);
+            Logger.getLogger(ClientDAO.class.getName()).log(Level.SEVERE, null, e);
         }
         return client;
     }
@@ -116,7 +116,21 @@ public class ClientDAO implements ClientDAOLocal{
             pstmt.setInt(1, id);
             pstmt.executeUpdate();
         } catch (SQLException e) {
-            Logger.getLogger(TrajetDAO.class.getName()).log(Level.SEVERE, null, e);
+            Logger.getLogger(ClientDAO.class.getName()).log(Level.SEVERE, null, e);
+        }
+    }
+
+    @Override
+    public void deleteClient(int utilisateur_id){
+        try (
+                Connection connection = dataSource.getConnection();
+                PreparedStatement pstmt = connection.prepareStatement
+                        ("delete from client where utilisateur_id=?");) {
+
+            pstmt.setInt(1, utilisateur_id);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            Logger.getLogger(ClientDAO.class.getName()).log(Level.SEVERE, null, e);
         }
     }
 

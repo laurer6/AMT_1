@@ -15,4 +15,5 @@ public interface ClientDAOLocal {
     void setSolde(float montant, int userID);
     Client getClient(int id);
     void addClient(int id);
+    void deleteClient(int utilisateur_id);
 }

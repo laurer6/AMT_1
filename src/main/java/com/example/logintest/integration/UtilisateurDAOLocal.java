@@ -10,4 +10,5 @@ public interface UtilisateurDAOLocal {
     List<Utilisateur> getUtilisateurs();
     void add(Utilisateur contact);
     Utilisateur getUtilisateur(String login);
+    void deleteUtilisateur(int id);
 }

@@ -90,16 +90,6 @@ The when condition does not display a link for the current page--%>
 
 
 
-<h2>Liste des stations</h2>
-<c:forEach items="${emplacementsLibres}" var="emp" >
-    <li>${emp.id} : ${emp.adresse} : ${emp.emplacement_id} : occupe ?${emp.occupe}: reserve ?${emp.reserve}</li>
-</c:forEach>
-
-<h2>Liste des stations 2</h2>
-<c:forEach var= "liste" items="${listes}"  >
-    <li>${liste}</li>
-</c:forEach>
-
 </body>
 
 </html>
