@@ -37,6 +37,7 @@ public class SecurityConfig {
         urlPatterns2.add("/managerTask");
         urlPatterns1.add("/rendreVoiture");
         urlPatterns1.add("/operationClient");
+        urlPatterns1.add("/changementSoldeClient");
 
         mapConfig.put(ROLE_MANAGER, urlPatterns2);
     }

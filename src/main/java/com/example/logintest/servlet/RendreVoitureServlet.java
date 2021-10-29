@@ -104,13 +104,11 @@ public class RendreVoitureServlet extends HttpServlet {
                 trajetDAO.supTrajet(user.getTrajetId());
                 user.setTrajetId(0);
 
-
                 List<Prix> prix = prixDAO.getPrix();
 
                 float prixVehicule = DataDAO.prixVehicule(prix, user.getVehicule().getCategorie());
 
                 float prixTotal = prixVehicule * km * jour;
-
 
                 String test3 = "PRIX POUR  "+ user.getVehicule().getCategorie()  + " " + prixVehicule + " " + prixTotal;
                 errors.add(test3);
@@ -123,7 +121,6 @@ public class RendreVoitureServlet extends HttpServlet {
             }
 
         else {
-
                 request.setAttribute("errors", errors);
 
         }

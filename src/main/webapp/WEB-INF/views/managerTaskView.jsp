@@ -48,6 +48,42 @@ Affichage de tout les utilisateurs
             <td>${listes2.id}</td>
             <td>${listes2.userName}</td>
             <td>${listes2.password}</td>
+            <td>
+                <c:choose>
+                    <c:when test="${listes2.admin=='true'}">
+                        Administrateur
+                        <br />
+                    </c:when>
+                    <c:otherwise>
+                        Client
+                        <br />
+                    </c:otherwise>
+                </c:choose>
+            </td>
+            <td>
+                <c:choose>
+                    <c:when test="${listes2.admin=='true'}">
+
+                        <br />
+                    </c:when>
+                    <c:otherwise>
+                        ${listes2.solde}
+                        <br />
+                    </c:otherwise>
+                </c:choose>
+            </td>
+            <td>
+                <c:choose>
+                    <c:when test="${listes2.admin=='true'}">
+
+                        <br />
+                    </c:when>
+                    <c:otherwise>
+                        ${listes2.vehicule.categorie}  ${listes2.vehicule.matricule}
+                        <br />
+                    </c:otherwise>
+                </c:choose>
+            </td>
         </tr>
     </c:forEach>
 </table>
@@ -118,10 +154,12 @@ The when condition does not display a link for the current page--%>
 
 ||
 <a href="${pageContext.request.contextPath}/operationClient">
-    Changer solde client, supprimer Client
+    Supprimer client
 </a>
 ||
-
+<a href="${pageContext.request.contextPath}/changementSoldeClient">
+    Changer solde
+</a>
 
 
 
