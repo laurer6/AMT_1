@@ -99,13 +99,14 @@ public class RendreVoitureServlet extends HttpServlet {
 
                 //Le vehicule sera à la place de destination, le trajet du client sera supprimé
                 vehiculeDAO.setEmplacement(user.getTrajet().getVehicule_id(),user.getTrajet().getDestination_emplacement_id(),
-                        user.getTrajet().getDestination_station_id());
+                       user.getTrajet().getDestination_station_id());
                 clientDAO.deleteTrajet(user.getId());
                 trajetDAO.supTrajet(user.getTrajetId());
                 user.setTrajetId(0);
 
                 List<Prix> prix = prixDAO.getPrix();
 
+                // TODO calcul à refaire
                 float prixVehicule = DataDAO.prixVehicule(prix, user.getVehicule().getCategorie());
 
                 float prixTotal = prixVehicule * km * jour;

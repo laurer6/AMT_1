@@ -31,7 +31,9 @@ public class PrixDAO implements PrixDAOLocal{
             while (rs.next()){
                 String categorie1 = rs.getString(1);
                 float price1 = rs.getFloat(2);
-                Prix prix1 = new Prix(categorie1,price1);
+                float price2 = rs.getFloat(3);
+                float price3 = rs.getFloat(4);
+                Prix prix1 = new Prix(categorie1,price1,price2,price3);
 
                 prix.add(prix1);
             }
