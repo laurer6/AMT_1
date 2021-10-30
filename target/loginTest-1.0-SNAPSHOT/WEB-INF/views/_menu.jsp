@@ -9,12 +9,16 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+<a href="${pageContext.request.contextPath}/">
+    Home
+</a>
+||
 <a href="${pageContext.request.contextPath}/stationEtEmplacment">
     Station
 </a>
 ||
 <a href="${pageContext.request.contextPath}/employeeTask">
-    Employee Task
+    Reserver une voiture
 </a>
 ||
 <a href="${pageContext.request.contextPath}/rendreVoiture">
@@ -22,7 +26,7 @@
 </a>
 ||
 <a href="${pageContext.request.contextPath}/managerTask">
-    Manager Task
+    Administrateur
 </a>
 ||
 <a href="${pageContext.request.contextPath}/userInfo">
