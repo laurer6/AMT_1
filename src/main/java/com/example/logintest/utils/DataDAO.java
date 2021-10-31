@@ -58,6 +58,16 @@ public class DataDAO {
         return null;
     }
 
+    public static UserAccount getUserViaId(List<UserAccount> listUser, int id){
+
+        for(UserAccount usr: listUser){
+            if(usr.getId() == id) return usr;
+        }
+
+        return null;
+
+    }
+
     //Genére une liste d'emplacement avec tout les détail nécessaire, grâce à toute les listes dérivées des tables SQL
 
     public static List<EmplacementUtilisation> GenerationEmplacement(List<Station> stations, List<Emplacement> emplacements, List<Vehicule> vehicules, List<Trajet> trajets){

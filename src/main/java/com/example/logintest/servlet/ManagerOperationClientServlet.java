@@ -1,17 +1,14 @@
 package com.example.logintest.servlet;
 
-import com.example.logintest.bean.EmplacementUtilisation;
 import com.example.logintest.bean.UserAccount;
 import com.example.logintest.integration.*;
 import com.example.logintest.utils.DataDAO;
 import model.*;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -72,9 +69,10 @@ public class ManagerOperationClientServlet extends HttpServlet{
 
         int utilisateur_idADelete = Integer.parseInt(request.getParameter("clientNum"));
 
-        UserAccount utilisateurADelete = listUser.get(utilisateur_idADelete-1);
+        UserAccount utilisateurADelete = DataDAO.getUserViaId(listUser, utilisateur_idADelete);
 
         String error;
+
         if(utilisateurADelete.getTrajet() != null){
             error = "Le client a un trajet en cours";
         }
@@ -86,10 +84,12 @@ public class ManagerOperationClientServlet extends HttpServlet{
             clientDAO.deleteClient(utilisateur_idADelete);
             utilisateurDAO.deleteUtilisateur(utilisateurADelete.getId());
 
-            error = "Le client numéro" +  utilisateur_idADelete + " avec le login " + utilisateurADelete.getUserName() + " a bien été " +
-                    "supprimé";
+            error = "Le client numéro " +  utilisateur_idADelete + " avec le login " + utilisateurADelete.getUserName() + " a bien été " +
+                   "supprimé";
 
         }
+
+
 
         request.setAttribute("errorMessage12", error);
 

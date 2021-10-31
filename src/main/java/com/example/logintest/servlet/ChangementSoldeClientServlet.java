@@ -76,7 +76,7 @@ public class ChangementSoldeClientServlet extends HttpServlet {
 
         float solde = 0;
 
-        UserAccount utilisateurChangeSolde = listUser.get(utilisateur_idNewSolde-1);
+        UserAccount utilisateurChangeSolde = DataDAO.getUserViaId(listUser, utilisateur_idNewSolde);
 
         List<String> errors = new ArrayList<>();
 
@@ -95,8 +95,8 @@ public class ChangementSoldeClientServlet extends HttpServlet {
 
             clientDAO.setSolde(solde, utilisateurChangeSolde.getId());
 
-            errors.add( "Le client numéro" +  utilisateur_idNewSolde + " avec le login " + utilisateurChangeSolde.getUserName()
-                    + " nouveau solde" + solde);
+            errors.add( "Le client numéro " +  utilisateur_idNewSolde + " avec le login " + utilisateurChangeSolde.getUserName()
+                    + " nouveau solde " + solde);
         }
 
         request.setAttribute("errors", errors);
