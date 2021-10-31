@@ -18,9 +18,23 @@
 
 <jsp:include page="_menu.jsp"></jsp:include>
 
+
 <h3>Reserver un trajet</h3>
 
-<p style="color: red;">${errorMessage12}</p>
+
+    <c:if test="${errorMessage12 != null}">
+        <p style="color: red;"> Erreurs:</p>
+    <ul>
+    <c:forEach items="${errorMessage12}" var="error">
+      <li>${error}</li>
+    </c:forEach>
+</ul>
+</c:if>
+
+
+
+<p style="color: blue;">${message}</p>
+
 
 Choisissez un station de depart, d'arrivée, ainsi qu'un véhicule </br>
 Les emplacements disponible sont automatiquement reservé </br>
@@ -51,6 +65,7 @@ Ils seront ammenés sur un emplacement à la station de départ </br></br>
     <br/><br/>
     <input type="submit" value="Submit" />
 </form>
+
 
 </body>
 </html>

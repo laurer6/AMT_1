@@ -19,15 +19,21 @@
 
 <jsp:include page="_menu.jsp"></jsp:include>
 
+<h3>Rendre une voiture</h3>
+
+Une fois le vehicule retourné à l'emplacement réservé, veuillez entrer la durée d'utilsation </br>
+du vehicule en minute, ainsi que les kilomètres parcourus. </br>
+Un calcul sera effectué selon les prix du tableau et le solde retiré du monant trouvé.</br></br>
+
 <form method="POST" action="${pageContext.request.contextPath}/rendreVoiture">
 
     <table border="0">
         <tr>
-            <td>kilometre</td>
+            <td>distance (km)</td>
             <td><input type="text" name="kilometre" value= "${kilometre}" /> </td>
         </tr>
         <tr>
-            <td>duree</td>
+            <td>duree (minutes)</td>
             <td><input type="text" name="duree" value= "${duree}" /> </td>
         </tr>
         <tr>

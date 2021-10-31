@@ -63,7 +63,7 @@ public class RendreVoitureServlet extends HttpServlet {
         String duree = request.getParameter("duree");
 
         int km = 0;
-        int jour = 0;
+        int minutes = 0;
 
         List<String> errors = new ArrayList<>();
 
@@ -83,7 +83,7 @@ public class RendreVoitureServlet extends HttpServlet {
         }
         else {
             try {
-                jour = Integer.parseInt(duree);
+                minutes = Integer.parseInt(duree);
 
             } catch (NumberFormatException e ){
                 errors.add("La durée doit être numérique");
@@ -98,8 +98,8 @@ public class RendreVoitureServlet extends HttpServlet {
         if (errors.size() == 0) {
 
                 //Le vehicule sera à la place de destination, le trajet du client sera supprimé
-                vehiculeDAO.setEmplacement(user.getTrajet().getVehicule_id(),user.getTrajet().getDestination_emplacement_id(),
-                       user.getTrajet().getDestination_station_id());
+               vehiculeDAO.setEmplacement(user.getTrajet().getVehicule_id(),user.getTrajet().getDestination_emplacement_id(),
+                      user.getTrajet().getDestination_station_id());
                 clientDAO.deleteTrajet(user.getId());
                 trajetDAO.supTrajet(user.getTrajetId());
                 user.setTrajetId(0);
@@ -107,9 +107,9 @@ public class RendreVoitureServlet extends HttpServlet {
                 List<Prix> prix = prixDAO.getPrix();
 
                 // TODO calcul à refaire
-                float prixVehicule = DataDAO.prixVehicule(prix, user.getVehicule().getCategorie());
+                float prixVehicule = DataDAO.prixVehicule(prix, user.getVehicule().getCategorie(), minutes);
 
-                float prixTotal = prixVehicule * km * jour;
+                float prixTotal = prixVehicule * km * minutes;
 
                 String test3 = "PRIX POUR  "+ user.getVehicule().getCategorie()  + " " + prixVehicule + " " + prixTotal;
                 errors.add(test3);

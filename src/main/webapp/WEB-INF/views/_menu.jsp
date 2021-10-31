@@ -52,9 +52,12 @@
                 </c:when>
                 <c:otherwise>
                     <c:if test = "${loginedUser.trajetId != 0}">
-                        TRAJET EN COURS
+                     /  TRAJET EN COURS
                     </c:if>
-                     solde restant : ${loginedUser.solde}
+                     / solde restant : ${loginedUser.solde}
+                    <c:if test = "${not empty loginedUser.vehicule}">
+                        /  vehicule en cours d'utilisation : ${loginedUser.vehicule.categorie} ${loginedUser.vehicule.matricule}
+                    </c:if>
                 </c:otherwise>
             </c:choose>
         </c:if>

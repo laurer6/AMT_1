@@ -20,11 +20,7 @@
 
 <jsp:include page="_menu.jsp"></jsp:include>
 
-<h3>Manager Task</h3>
 
-Hello, This is a protected page!
-
-</body>
 
 
 <h3>Liste utilisateurs</h3>

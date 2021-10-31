@@ -45,7 +45,7 @@ public class ManagerTaskServlet extends HttpServlet {
 
 
         List<Utilisateur> utilisateurs = utilisateurDAO.getUtilisateurs();
-        //request.setAttribute("utilisateurs", utilisateurs);
+
         List<Client> clients = clientDAO.getClient();
         List<Administrateur> administrateurs = administrateurDAO.getAdmin();
         List<Trajet> trajets = trajetDAO.getTrajets();

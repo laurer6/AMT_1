@@ -15,18 +15,17 @@
     <title>Manager Task</title>
 </head>
 
-<body>
 
 <jsp:include page="_menu.jsp"></jsp:include>
 
 <p style="color: red;">${errorMessage12}</p>
 
-<h3>Manager Task 2</h3>
+<h3>Suprrimer un client</h3>
 
-Operation sur les clients
+Vous pouvez suprrimer un client qui a son solde à 0 ou qui est negatif, et qui a rendu son véhicule </br> </br>
 
 <form method="post" action="${pageContext.request.contextPath}/operationClient">
-    choisir un utilisateur
+    Choisir un utilisateur
     <select name="clientNum">
         <c:forEach items="${listUser}" var="listUser">
             <option value="${listUser.id}">  ${listUser.userName}</option>

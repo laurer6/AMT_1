@@ -228,11 +228,13 @@ public class DataDAO {
         return 0;
     }
 
-    public static float prixVehicule (List<Prix> prix, String categorieUser){
+    public static float prixVehicule (List<Prix> prix, String categorieUser, int minutes){
 
                 for (Prix pr : prix) {
                     if (pr.getCateogire().equals(categorieUser)) {
-                        return pr.getPrix1();
+                        if(minutes > 0 && minutes < 60)  return pr.getPrix1();
+                        else if(minutes > 60 && minutes < 180) return pr.getPrix2();
+                        else if(minutes >= 180) return  pr.getPrix3();
                     }
                 }
 

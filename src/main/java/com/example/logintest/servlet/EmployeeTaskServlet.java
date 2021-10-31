@@ -9,6 +9,7 @@ import com.example.logintest.utils.DataDAO;
 import model.*;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -47,9 +48,14 @@ public class EmployeeTaskServlet extends HttpServlet {
 
 
         List<Vehicule> vehicules = vehiculeDAO.getVehiculeViaID();
+
         List<Client> clients = clientDAO.getClient();
+
         List<Trajet> trajets = trajetDAO.getTrajets();
+
         List<Station> stations = stationDAO.getStations();
+        request.setAttribute("stations", stations);
+
         List<Emplacement> emplacements = emplacementDAO.getEmplacements();
 
 
@@ -86,29 +92,30 @@ public class EmployeeTaskServlet extends HttpServlet {
 
         UserAccount user = AppUtils.getLoginedUser(request.getSession());
 
+        List<String> errors = new ArrayList<>();
+
+
         if(user.getSolde() <= 0){
-            String test = "Solde insufisant pour reserver un trajet";
-            request.setAttribute("errorMessage12", test);
-
+            errors.add("Solde insufisant pour reserver un trajet");
 
         }
-        else if(user.getTrajetId() != 0){
-            String test = "Trajet déjà en cours";
-            request.setAttribute("errorMessage12", test);
+        if(user.getTrajetId() != 0){
+            errors.add("Trajet déjà en cours");
+
         }
-        else if(noEmplacementDepart == 0 || noEmplacementArrive == 0){
+        if(noEmplacementDepart == 0 || noEmplacementArrive == 0){
             String test;
             if(noEmplacementDepart == 0) {
-                 test = "Pas d'emplacement pour la station de départ";
+                errors.add("Pas d'emplacement pour la station de départ");
             }
             else {
-                test = "Pas d'emplacement pour la station de départ";
+                errors.add("Pas d'emplacement pour la station de départ");
             }
-            request.setAttribute("errorMessage12", test);
+
 
 
         }
-        else {
+        if(errors.size() == 0) {
 
             int userID = user.getId();
 
@@ -117,9 +124,9 @@ public class EmployeeTaskServlet extends HttpServlet {
             Trajet trajet = trajetDAO.getTrajetViaVehicule(numeroVehicule);
             Vehicule vehicule = vehiculeDAO.getVehiculeViaID(numeroVehicule);
 
-            String test2 = "station: " + numeroStationDepart + " emplacement no " + noEmplacementDepart + " à station: " + numeroStationArrive +
-                    " emplacement no " + noEmplacementArrive + " vehicule " + numeroVehicule + " trajet " + trajet.getId() + " user id " + userID;
-            request.setAttribute("errorMessage12", test2);
+            String test2 = "Trajet reservé depuis la station: " + stations.get(numeroStationDepart).getAdresse() + " emplacement no " + noEmplacementDepart + " à la station: " + stations.get(numeroStationArrive).getAdresse() +
+                    " emplacement no " + noEmplacementArrive + " Avec le vehicule " + vehicules.get(numeroVehicule).getCategorie() + " : "+  vehicules.get(numeroVehicule).getMatricule();
+            request.setAttribute("message", test2);
 
             user.setTrajetId(trajet.getId()); // pour le changement en temps réel
             user.setTrajet(trajet);
@@ -127,6 +134,10 @@ public class EmployeeTaskServlet extends HttpServlet {
 
             clientDAO.setTrajet(trajet.getId(), user.getId());
             vehiculeDAO.setEmplacement(numeroVehicule, noEmplacementDepart, numeroStationDepart);
+        }
+
+        else{
+            request.setAttribute("errorMessage12", errors);
         }
 
 
