@@ -43,19 +43,11 @@ public class UserInfoServlet extends HttpServlet {
         UserAccount usr = AppUtils.getLoginedUser(request.getSession());
         request.setAttribute("usr",usr);
 
-
-
-        //List<Client> clients = clientDAO.getClient();
-        //List<Trajet> trajets = trajetDAO.getTrajets();
-        //List<Vehicule> vehicules = vehiculeDAO.getVehiculeViaID();
-
         List<Station> stations = stationDAO.getStations();
         request.setAttribute("stations", stations);
 
         List<Emplacement> emplacements = emplacementDAO.getEmplacements();
         request.setAttribute("emplacements", emplacements);
-
-
 
 
 
