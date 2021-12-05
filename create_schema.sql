@@ -38,13 +38,15 @@ CREATE TABLE IF NOT EXISTS `lab1_AMT`.`Emplacement` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
-
 -- -----------------------------------------------------
--- Table `lab1_AMT`.`Categorie`
+-- Table `lab1_AMT`.`Prix`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `lab1_AMT`.`Categorie` (
-  `nom` ENUM('BERLINE', 'MOTO', 'FOURGON') NOT NULL,
-  PRIMARY KEY (`nom`))
+CREATE TABLE IF NOT EXISTS `lab1_AMT`.`Prix` (
+  `categorie` ENUM('BERLINE', 'MOTO', 'FOURGON') NOT NULL,
+  `prix1` DECIMAL(4,2) NOT NULL,
+  `prix2` DECIMAL(4,2) NOT NULL,
+  `prix3` DECIMAL(4,2) NOT NULL,
+  PRIMARY KEY (`categorie`))
 ENGINE = InnoDB;
 
 
@@ -56,7 +58,7 @@ CREATE TABLE IF NOT EXISTS `lab1_AMT`.`Vehicule` (
   `matricule` VARCHAR(20) NOT NULL,
   `emplacement_id` INT,
   `station_id` INT,
-  `categorie` ENUM('BERLINE', 'MOTO', 'FOURGON') NOT NULL DEFAULT 'BERLINE',
+  `categorie` ENUM('BERLINE', 'MOTO', 'FOURGON') NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `matricule_UNIQUE` (`matricule` ASC),
   INDEX `fk_Vehicule_Emplacement1_idx` (`emplacement_id` ASC, `station_id` ASC),
@@ -66,11 +68,11 @@ CREATE TABLE IF NOT EXISTS `lab1_AMT`.`Vehicule` (
     REFERENCES `lab1_AMT`.`Emplacement` (`id` , `station_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `fk_Vehicule_Categorie1`
+  CONSTRAINT `fk_Vehicule_Prix`
     FOREIGN KEY (`categorie`)
-    REFERENCES `lab1_AMT`.`Categorie` (`nom`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    REFERENCES `lab1_AMT`.`Prix` (`categorie`)
+    ON DELETE RESTRICT
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
@@ -95,7 +97,7 @@ CREATE TABLE IF NOT EXISTS `lab1_AMT`.`Trajet` (
   `destination_emplacement_id` INT NOT NULL,
   `destination_Station_id` INT NOT NULL,
   `duree` INT NULL,
-  `price` DECIMAL(5,2) NULL,
+  `prix` DECIMAL(5,2) NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_Trajet_Vehicule1_idx` (`vehicule_id` ASC),
   INDEX `fk_Trajet_Emplacement1_idx` (`destination_emplacement_id` ASC, `destination_Station_id` ASC),
@@ -143,23 +145,6 @@ CREATE TABLE IF NOT EXISTS `lab1_AMT`.`Administrateur` (
   CONSTRAINT `fk_Administrateur_Utilisateur1`
     FOREIGN KEY (`utilisateur_id`)
     REFERENCES `lab1_AMT`.`Utilisateur` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `lab1_AMT`.`Price`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `lab1_AMT`.`Price` (
-  `categorie` ENUM('BERLINE', 'MOTO', 'FOURGON') NOT NULL,
-  `prix1` DECIMAL(4,2) NOT NULL,
-  `prix2` DECIMAL(4,2) NOT NULL,
-  `prix3` DECIMAL(4,2) NOT NULL,
-  PRIMARY KEY (`categorie`),
-  CONSTRAINT `fk_Price_Categorie1`
-    FOREIGN KEY (`categorie`)
-    REFERENCES `lab1_AMT`.`Categorie` (`nom`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;

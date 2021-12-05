@@ -21,7 +21,11 @@
 
 <h3>Station</h3>
 
-Affichage des stations
+<p>Affichage des stations</p>
+
+<c:forEach items="${stations}" var="station">
+    <li>${station.adresse}</li>
+</c:forEach>
 
 </head>
 <body>

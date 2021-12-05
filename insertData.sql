@@ -90,11 +90,12 @@ VALUES (1, 1),
        (20, 5);
 
 
--- INSERTION des Catégories de Véhicule
-INSERT INTO Categorie (nom)
-VALUES ('BERLINE'),
-       ('FOURGON'),
-       ('MOTO');
+-- INSERTION des prix de location
+INSERT INTO Prix(categorie, prix1, prix2, prix3)
+VALUES ('BERLINE', 2.95, 2.60, 2.30),
+       ('MOTO', 1.70, 1.50, 1.50),
+       ('FOURGON', 3.60, 3.00, 2.80);
+
 
 -- INSERTION des Véhicules
 INSERT INTO Vehicule (matricule, emplacement_id, station_id, categorie)
@@ -132,18 +133,19 @@ VALUES ('VD 364 263', 1, 1, 'MOTO'),
        ('VD 894 303', 5, 5, 'FOURGON'),
        ('VD 318 843', 14, 1, 'FOURGON'),
        ('VD 894 263 ', 15, 1, 'BERLINE'),
-       ('VD 436 502 ', 16, 1, 'BERLINE');
+       ('VD 436 508 ', 16, 1, 'BERLINE');
+
 
 -- INSERTION des Utilisateurs
 INSERT INTO Utilisateur (login, password)
-VALUES ('Warren', MD5('AMT123')),
-       ('Boris', MD5('AMTabc')),
-       ('Jessamine', MD5('AMTABC')),
-       ('Rowan', MD5('AMTAbc')),
-       ('Chava', MD5('AMTaBC'));
+VALUES ('Warren', 'AMT123'),
+       ('Boris', 'AMTabc'),
+       ('Jessamine', 'AMTABC'),
+       ('Rowan', 'AMTAbc'),
+       ('Chava', 'AMTaBC');
 
 -- INSERTION des Trajet
-INSERT INTO Trajet (id, vehicule_id, destination_emplacement_id, destination_Station_id, duree, price)
+INSERT INTO Trajet (id, vehicule_id, destination_emplacement_id, destination_Station_id, duree, prix)
 VALUES (1, 1, 1, 5, NULL, NULL),
        (2, 12, 7, 2, NULL, NULL), -- Voiture qui revient à son emplacement de départ
        (3, 6, 7, 4, 154, 79.80);
@@ -155,13 +157,9 @@ VALUES (2, 2, 0.0),
        (3, 1, 25.0),
        (5, 3, 8.80);
 
+
 -- INSERTION des administrateurs
 INSERT INTO Administrateur (utilisateur_id)
 VALUES (1),
        (4);
 
--- INSERTION des prix de location
-INSERT INTO Price(categorie, prix1, prix2, prix3)
-VALUES ('BERLINE', 2.95, 2.60, 2.30),
-       ('MOTO', 1.70, 1.50, 1.50),
-       ('FOURGON', 3.60, 3.00, 2.80);
