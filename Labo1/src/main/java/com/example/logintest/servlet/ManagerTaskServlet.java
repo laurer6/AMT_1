@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.ejb.EJB;
 import javax.inject.Inject;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -23,9 +24,9 @@ public class ManagerTaskServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
 
-    @Inject
+    @EJB
     private UtilisateurDAOLocal utilisateurDAO;
-    @Inject
+    @EJB
     private ClientDAOLocal clientDAO;
     @Inject
     private TrajetDAOLocal trajetDAO;
@@ -96,11 +97,17 @@ public class ManagerTaskServlet extends HttpServlet {
 
         if (errors.size() == 0) {
 
-            Utilisateur utilisateur = new Utilisateur(newUserName,newPassword);
-            utilisateurDAO.add(utilisateur);
 
-            //avec l'id autoincrémenté
-            utilisateur = utilisateurDAO.getUtilisateur(newUserName);
+            Utilisateur utilisateur = new Utilisateur(newUserName,newPassword);
+            try {
+                utilisateurDAO.add(utilisateur);
+                utilisateur = utilisateurDAO.getUtilisateur(newUserName);
+
+            } catch (Exception e) {
+                errors.add("probleme avec l'ajout d'utilisateur");
+                request.setAttribute("errors", errors);
+            }
+                //avec l'id autoincrémenté
             clientDAO.addClient(utilisateur.getId());
 
         }

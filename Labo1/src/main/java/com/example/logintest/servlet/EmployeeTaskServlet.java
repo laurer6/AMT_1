@@ -44,9 +44,6 @@ public class EmployeeTaskServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-
-
-
         List<Vehicule> vehicules = vehiculeDAO.getVehiculeViaID();
 
         List<Client> clients = clientDAO.getClient();

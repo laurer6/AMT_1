@@ -5,6 +5,8 @@ import model.Utilisateur;
 
 import javax.annotation.Resource;
 import javax.ejb.Stateless;
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
 import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -15,6 +17,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 @Stateless
+@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
 public class UtilisateurDAO implements UtilisateurDAOLocal{
 
 
@@ -44,10 +47,7 @@ public class UtilisateurDAO implements UtilisateurDAOLocal{
         return utilisateurs;
     }
 
-    /**
-     * Ajoute un nouveau contact (sans conjoint)
-     *   (doublons encore à gérer)
-     */
+
     public void add(Utilisateur utilisateur) {
         try (
                 Connection connection = dataSource.getConnection();
@@ -57,6 +57,7 @@ public class UtilisateurDAO implements UtilisateurDAOLocal{
             pstmt.setString(1, utilisateur.getLogin());
             pstmt.setString(2, utilisateur.getPassword());
             pstmt.executeUpdate();
+            throw new RuntimeException("probleme client");
         } catch (SQLException e) {
             Logger.getLogger(UtilisateurDAO.class.getName()).log(Level.SEVERE, null, e);
         }
