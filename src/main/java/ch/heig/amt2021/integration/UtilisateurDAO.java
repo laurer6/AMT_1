@@ -17,9 +17,8 @@ public class UtilisateurDAO {
     @PersistenceContext(unitName = "locationCarPersistenceUnit")
     private EntityManager em;
 
-    private static final Logger LOGGER = Logger.getLogger(UtilisateurDAO.class.getName());
     public List<Utilisateur> getUtilisateurs() {
-        List<Utilisateur> utilisateurs = new ArrayList<>();
+        List<Utilisateur> utilisateurs = null;
         try {
             utilisateurs = em.createQuery("SELECT u FROM Utilisateur u", Utilisateur.class).getResultList();
         } catch (PersistenceException e) {
@@ -36,19 +35,29 @@ public class UtilisateurDAO {
         }
     }
 
-    public Utilisateur getUtilisateur(String login){
-        Utilisateur utilisateur1 = null;
+    public Utilisateur getUtilisateurByLogin(String login){
+        Utilisateur utilisateur = null;
         try {
-
+            utilisateur = (Utilisateur) em.createQuery("SELECT u FROM Utilisateur u WHERE u.login = :login").setParameter("login", login).getSingleResult();
         } catch (PersistenceException e) {
             Logger.getLogger(UtilisateurDAO.class.getName()).log(Level.SEVERE, null, e);
         }
-        return utilisateur1;
+        return utilisateur;
+    }
+
+    public Utilisateur getUtilisateurById(int id){
+        Utilisateur utilisateur = null;
+        try {
+            utilisateur = (Utilisateur) em.createQuery("SELECT u FROM Utilisateur u WHERE u.id = :id").setParameter("id", id).getSingleResult();
+        } catch (PersistenceException e) {
+            Logger.getLogger(UtilisateurDAO.class.getName()).log(Level.SEVERE, null, e);
+        }
+        return utilisateur;
     }
 
     public void deleteUtilisateur(int id){
         try {
-
+            em.remove(getUtilisateurById(id));
         } catch (PersistenceException e) {
             Logger.getLogger(UtilisateurDAO.class.getName()).log(Level.SEVERE, null, e);
         }

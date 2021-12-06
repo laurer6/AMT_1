@@ -48,6 +48,14 @@ public class Vehicule {
         this.matricule = matricule;
     }
 
+    public int getStation_id() {
+        return emplacement.getStationId();
+    }
+
+    public int getEmplacement_id() {
+        return emplacement.getId();
+    }
+
     public Integer getId() {
         return id;
     }

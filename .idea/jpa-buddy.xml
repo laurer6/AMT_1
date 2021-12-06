@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="JpaBuddyIdeaProjectConfig">
+  <component name="JpaBuddyIdeaProjectConfig" ddlActionDbType="mysql" migrateIndexesAndConstraints="false">
     <option name="defaultUnitInitialized" value="true" />
+    <option name="reverseEngineeringLastDbConnectionId" value="4204a3c7-1a13-498c-94f0-cea96b9ae43a" />
+    <option name="reLastEntityCreationPackage" value="src/main/java/ch/heig/amt2021/model" />
   </component>
 </project>

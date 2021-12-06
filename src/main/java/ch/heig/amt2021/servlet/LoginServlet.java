@@ -62,7 +62,7 @@ public class LoginServlet extends HttpServlet {
 
 
         UserAccount userAccount2 = DataDAO.findUser2(userName, password, utilisateurs, clients, administrateurs, vehicules, trajets);
-
+        request.setAttribute("utilisateurs", utilisateurs);
         if (userAccount2 == null) {
             String errorMessage = "Invalid userName or Password";
             if (userName.isEmpty()) errorMessage = " le userName doit être renseigné";

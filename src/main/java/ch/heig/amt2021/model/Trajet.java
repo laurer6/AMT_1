@@ -64,6 +64,14 @@ public class Trajet {
         return id;
     }
 
+    public int getDestination_station_id() {
+        return destination.getStationId();
+    }
+
+    public int getDestination_emplacement_id() {
+        return destination.getId();
+    }
+
     public void setId(Integer id) {
         this.id = id;
     }

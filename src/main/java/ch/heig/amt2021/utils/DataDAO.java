@@ -1,15 +1,13 @@
 package ch.heig.amt2021.utils;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import ch.heig.amt2021.bean.EmplacementUtilisation;
 import ch.heig.amt2021.bean.UserAccount;
 import ch.heig.amt2021.bean.VehiculeUtilisation;
 import ch.heig.amt2021.config.SecurityConfig;
 import ch.heig.amt2021.model.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class DataDAO {

@@ -1,14 +1,8 @@
 package ch.heig.amt2021.servlet;
 
 import ch.heig.amt2021.bean.EmplacementUtilisation;
-import ch.heig.amt2021.integration.EmplacementDAO;
-import ch.heig.amt2021.integration.StationDAO;
-import ch.heig.amt2021.integration.TrajetDAO;
-import ch.heig.amt2021.integration.VehiculeDAO;
-import ch.heig.amt2021.model.Emplacement;
-import ch.heig.amt2021.model.Station;
-import ch.heig.amt2021.model.Trajet;
-import ch.heig.amt2021.model.Vehicule;
+import ch.heig.amt2021.integration.*;
+import ch.heig.amt2021.model.*;
 import ch.heig.amt2021.utils.DataDAO;
 
 import javax.inject.Inject;
@@ -30,6 +24,8 @@ public class StationServlet extends HttpServlet {
     private VehiculeDAO vehiculeDAO;
     @Inject
     private TrajetDAO trajetDAO;
+    @Inject
+    private UtilisateurDAO utilisateurDAO;
 
     public StationServlet() {
         super();
@@ -73,16 +69,6 @@ public class StationServlet extends HttpServlet {
         request.setAttribute("currentPage", page);
         RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/views/stationView.jsp");
         view.forward(request, response);
-
-
-
-
-
-        RequestDispatcher dispatcher //
-                = this.getServletContext()//
-                .getRequestDispatcher("/WEB-INF/views/stationView.jsp");
-
-        dispatcher.forward(request, response);
     }
 
     @Override

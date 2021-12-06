@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DatabaseMigrationSettings">
+    <database-infos>
+      <database-info>
+        <dbms-id>mysql</dbms-id>
+        <mapping-types>
+          <mapping-type sql-type-parameter="Nothing">
+            <java-class>ch.heig.amt2021.model.Prix</java-class>
+            <sql-type>enum(BERLINE, MOTO, FOURGON)</sql-type>
+          </mapping-type>
+          <mapping-type sql-type-parameter="Precision and Scale">
+            <java-class>ch.heig.amt2021.model.Prix</java-class>
+            <sql-type>enum(BERLINE, MOTO, FOURGON)</sql-type>
+          </mapping-type>
+        </mapping-types>
+      </database-info>
+    </database-infos>
+  </component>
+  <component name="JpaPluginProjectSettings">
+    <option name="lastSelectedLanguage" value="Java" />
+  </component>
+</project>

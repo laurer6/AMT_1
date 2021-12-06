@@ -98,7 +98,7 @@ public class ManagerTaskServlet extends HttpServlet {
             utilisateurDAO.add(utilisateur);
 
             //avec l'id autoincrémenté
-            utilisateur = utilisateurDAO.getUtilisateur(newUserName);
+            utilisateur = utilisateurDAO.getUtilisateurByLogin(newUserName);
             clientDAO.addClient(utilisateur.getId());
 
         }
