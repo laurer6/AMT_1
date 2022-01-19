@@ -1,0 +1,196 @@
+openapi: 3.0.3
+info:
+  title: API Vehicule Location
+  description: "API pour la location de voiture"
+  version: 1.0.0
+tags:
+  - name: "Station"
+    description: Opération possible sur les stations etc
+  - name: "Emplacement"
+    description: Opération possible sur un emplacement
+  - name: "Vehicule"
+    description: Opérations possibles sur un véhicule
+  - name: "Reservation"
+    description: Effectuer la réservation d'un véhicule
+  - name: "Retourner"
+    description: Retourner un véhicule à la fin d'un trajet
+paths:
+  /stations:
+    get:
+      tags:
+        - "Station"
+      summary: Informations sur toutes les stations
+      description: Retourne la liste des emplacements de chaque station. Pour chaque emplacement, indique si celui-ci est occupé, si oui par quel véhicule. Si celui-ci est réservé pour un retour de voiture ou s'il est libre
+      operationId: listStationsUsingGET
+      responses:
+        '200':
+          description: OK
+          content:
+            'application/json':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Station'
+        '404' :
+          description: Not Found
+  /stations/{stationId}/emplacement/{numero}:
+    get:
+      tags:
+        - "Emplacement"
+      summary: Informations sur un emplacement dans une station donnée
+      description: Rechercher un emplacement en fonction de sa station et de son numéro
+      operationId: findEmplacementByStationIdAndNumero
+      parameters:
+        - name: stationId
+          in: path
+          description: ID de la station où se situe l'emplacement
+          required: true
+          schema:
+            type: integer
+            format: int32
+        - name: numero
+          in: path
+          description: numéro de l'emplacement recherché
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Emplacement'
+        404:
+          description: Not Found
+  /vehicule/{id}:
+    get:
+      tags:
+        - "Vehicule"
+      summary: Informations sur un vehicule
+      description: Retourne les informations sur un véhicule en fonction de l'Id du véhicule
+      operationId: findVehiculeById
+      parameters:
+        - name: id
+          in: path
+          description: id du véhicule
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Vehicule'
+        404:
+          description: Not Found
+  /reservation:
+    post:
+      tags:
+        - "Reservation"
+      summary: "Faire une réservation"
+      description: "Permet de réserver un véhicule pour un trajet entre 2 stations"
+      operationId: "reserveVehicleWithStationId"
+      requestBody:
+        content:
+          'application/json':
+            schema:
+              $ref: '#/components/schemas/ReservationWithStationId'
+      responses:
+        '201':
+          description: Confirmed
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+  /return:
+    post:
+      tags:
+        - "Retourner"
+      summary: "Retourner un véhicule réserver"
+      description: "Permet à l'utiisateur de rendre un véhicule qu'il a réservé"
+      operationId: "giveBackVehicule"
+      requestBody:
+        content:
+          'application/json':
+            schema:
+              $ref: '#/components/schemas/EndReservation'
+
+      responses:
+        '201':
+          description: Closed
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+components:
+  schemas:
+    Vehicule:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        matricule:
+          type: string
+        categorie:
+          type: string
+          enum:
+            - Berline
+            - Moto
+            - Fourgon
+    Emplacement:
+      type: object
+      properties:
+        numero:
+          type: integer
+          format: int32
+        statut:
+          type: string
+          default: libre
+          enum:
+            - libre
+            - occupé
+            - réservé
+        vehicule:
+          $ref: '#/components/schemas/Vehicule'
+    Station:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        adresse:
+          type: string
+        emplacements:
+          type: array
+          items:
+            $ref: '#/components/schemas/Emplacement'
+    ReservationWithStationId:
+      type: object
+      properties:
+        vehiculeId:
+          type: integer
+          format: int32
+        stationId:
+          type: integer
+          format: int32
+    EndReservation:
+      type: object
+      properties:
+        vehiculeId:
+          type: integer
+          format: int32
+        duree:
+          type: integer
+          format: int32
