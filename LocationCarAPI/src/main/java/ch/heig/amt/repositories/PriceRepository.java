@@ -8,6 +8,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface PriceRepository extends JpaRepository<PriceEntity, Integer> {
 
-    PriceEntity findPriceEntityByCategory(PriceEntity.@NonNull Category category);
+    PriceEntity findPriceEntityByCategory(String category);
 
 }

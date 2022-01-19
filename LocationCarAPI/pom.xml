@@ -45,14 +45,14 @@
                         </goals>
                         <configuration>
                             <inputSpec>${basedir}/src/main/resources/vehicle.yaml</inputSpec>
-                            <language>spring</language>
+                            <generatorName>spring</generatorName>
                             <configOptions>
                                 <useBeanValidation>true</useBeanValidation>
                                 <swaggerDocketConfig>false</swaggerDocketConfig>
                                 <interfaceOnly>true</interfaceOnly>
                                 <delegatePattern>false</delegatePattern>
                                 <apiPackage>ch.heig.amt.api</apiPackage>
-                                <configPackage>ch.heig.amt.config</configPackage>
+                                <configPackage>ch.heig.amt.configuration</configPackage>
                                 <basePackage>ch.heig.amt</basePackage>
                                 <modelPackage>ch.heig.amt.api.model</modelPackage>
                             </configOptions>

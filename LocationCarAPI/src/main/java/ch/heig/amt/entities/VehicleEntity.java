@@ -19,7 +19,6 @@ public class VehicleEntity {
     private String matricule;
 
     @NonNull
-    @Column(nullable = false)
     @OneToOne
-    private PriceEntity prix;
+    private PriceEntity price;
 }

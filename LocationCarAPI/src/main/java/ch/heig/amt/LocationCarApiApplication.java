@@ -1,14 +1,21 @@
 package ch.heig.amt;
 
+import ch.heig.amt.configuration.InitDataForAPI;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.ExitCodeGenerator;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
+import javax.annotation.PostConstruct;
+
 @SpringBootApplication
 @ComponentScan(basePackages = {"ch.heig.amt", "ch.heig.amt.api"})
 public class LocationCarApiApplication implements CommandLineRunner {
+
+    @Autowired
+    private InitDataForAPI initDataForAPI;
 
     @Override
     public void run(String... arg0) throws Exception {
@@ -28,6 +35,16 @@ public class LocationCarApiApplication implements CommandLineRunner {
         public int getExitCode() {
             return 10;
         }
-
     }
+
+    @PostConstruct
+    void init() {
+        initDataForAPI.generateDataForStations();
+        initDataForAPI.generateDataForPrice();
+        initDataForAPI.generateDataForVehicle();
+        initDataForAPI.generateDataForEmplacement();
+        initDataForAPI.generateDataForReservation();
+    }
+
+
 }

@@ -14,17 +14,21 @@ import javax.persistence.Id;
 @Entity
 public class PriceEntity {
 
-    public enum Category {
+    /*public enum Category {
         Berline, Fourgon, Moto
-    }
+    }*/
+
+    /*public PriceEntity(String category, double prix1, double prix2, double prix3, double priceMin) {
+        this(Category.valueOf(category), prix1, prix2, prix3, priceMin);
+    }*/
 
     @Id
     @GeneratedValue
     private Integer id;
 
     @NonNull
-    @Column(columnDefinition = "ENUM('Berline', 'Fourgon', 'Moto')", nullable = false)
-    private Category category;
+    @Column(nullable = false)
+    private String category;
 
     @NonNull
     @Column(nullable = false)

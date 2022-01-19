@@ -16,12 +16,10 @@ public class ReservationEntity {
 
     @NonNull
     @OneToOne
-    @Column(nullable = false)
     private VehicleEntity vehicle;
 
-    @OneToOne
     @NonNull
-    @Column(nullable = false)
+    @OneToOne
     private EmplacementEntity destination;
 
     private Integer duration;
