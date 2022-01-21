@@ -1,0 +1,176 @@
+  openapi: '3.0.3'
+  info:
+    description: Api Documentation
+    version: '1.0'
+    title: Api Documentation
+  tags:
+    - name: users-end-point
+      description: Gestion des users
+  paths:
+    /users:
+      get:
+        tags:
+          - users-end-point
+        description: Liste toutes les users
+        operationId: listUsersUsingGET
+        responses:
+          '200':
+            description: OK
+            content:
+              'application/json':
+                schema:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/User'
+          '401':
+            description: Unauthorized
+          '403':
+            description: Forbidden
+          '404':
+            description: Not Found
+        deprecated: false
+      post:
+        tags:
+          - users-end-point
+        summary: addUser
+        description: Ajoute un utilisateur
+        operationId: addUserUsingPOST
+        requestBody:
+          content:
+            'application/json':
+              schema:
+                $ref: '#/components/schemas/User'
+        responses:
+          '200':
+            description: OK
+          '201':
+            description: Created
+          '401':
+            description: Unauthorized
+          '403':
+            description: Forbidden
+          '404':
+            description: Not Found
+        deprecated: false
+    /users/{id}:
+      get:
+        tags:
+          - users-end-point
+        summary: ListUser
+        description: Affiche un utilisateur avec son ID
+        operationId: ListUserUsingGET
+        parameters:
+          - name: id
+            in: path
+            description: id
+            required: true
+            schema:
+              type: integer
+              format: int32
+        responses:
+          '200':
+            description: OK
+            content:
+              'application/json':
+                schema:
+                  $ref: '#/components/schemas/User'
+          '401':
+            description: Unauthorized
+          '403':
+            description: Forbidden
+          '404':
+            description: Not Found
+        deprecated: false
+      delete:
+        tags:
+          - users-end-point
+        summary: DeleteUser
+        description: Supprime un utilisateur avec son ID
+        operationId: DeleteUserUsingDelete
+        parameters:
+          - name: id
+            in: path
+            description: id
+            required: true
+            schema:
+              type: integer
+              format: int32
+        responses:
+          '200':
+            description: OK
+            content:
+              'application/json':
+                schema:
+                  $ref: '#/components/schemas/User'
+          '401':
+            description: Unauthorized
+          '403':
+            description: Forbidden
+          '404':
+            description: Not Found
+        deprecated: false
+      put:
+        tags:
+          - users-end-point
+        summary: UpdateUser
+        description: Met un jour un utilisateur avec son id, on peut changer son bloquage et/ou son solde
+        operationId: UpdateUserUsingPut
+        parameters:
+          - name: id
+            in: path
+            description: id
+            required: true
+            schema:
+              type: integer
+              format: int32
+          - in: query
+            name: body
+            description: "Updated user object"
+            required: true
+            schema:
+              $ref: "#/components/schemas/UserSummary"
+        responses:
+          '200':
+            description: OK
+            content:
+              'application/json':
+                schema:
+                  $ref: '#/components/schemas/UserSummary'
+          '401':
+            description: Unauthorized
+          '403':
+            description: Forbidden
+          '404':
+            description: Not Found
+        deprecated: false
+
+  components:
+    schemas:
+      User:
+        type: object
+        properties:
+          id:
+            type: integer
+            format: int32
+          userName:
+            type: string
+          userPassword:
+            type: string
+          solde:
+            type: number
+          isAdmin:
+            type: boolean
+          isBlocked:
+            type: boolean
+
+        title: User
+
+      UserSummary:
+        type: object
+        properties:
+          solde:
+            type: number
+          isBlocked:
+            type: boolean
+
+        title: UserSummary
