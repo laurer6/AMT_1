@@ -2,7 +2,7 @@ openapi: 3.0.3
 info:
   title: API Vehicule Location
   description: "API pour la location de voiture"
-  version: 1.0.0
+  version: '1.0.0'
 tags:
   - name: "Station"
     description: Opération possible sur les stations etc

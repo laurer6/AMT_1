@@ -1,21 +1,14 @@
 package ch.heig.amt;
 
-import ch.heig.amt.configuration.InitDataForAPI;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.ExitCodeGenerator;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
-import javax.annotation.PostConstruct;
-
 @SpringBootApplication
-@ComponentScan(basePackages = {"ch.heig.amt", "ch.heig.amt.api"})
-public class LocationCarApiApplication implements CommandLineRunner {
-
-    @Autowired
-    private InitDataForAPI initDataForAPI;
+@ComponentScan(basePackages = { "ch.heig.amt", "ch.heig.amt.api" })
+public class Swagger2SpringBoot implements CommandLineRunner {
 
     @Override
     public void run(String... arg0) throws Exception {
@@ -25,7 +18,7 @@ public class LocationCarApiApplication implements CommandLineRunner {
     }
 
     public static void main(String[] args) throws Exception {
-        new SpringApplication(LocationCarApiApplication.class).run(args);
+        new SpringApplication(Swagger2SpringBoot.class).run(args);
     }
 
     class ExitException extends RuntimeException implements ExitCodeGenerator {
@@ -35,16 +28,6 @@ public class LocationCarApiApplication implements CommandLineRunner {
         public int getExitCode() {
             return 10;
         }
+
     }
-
-    @PostConstruct
-    void init() {
-        initDataForAPI.generateDataForStations();
-        initDataForAPI.generateDataForPrice();
-        initDataForAPI.generateDataForVehicle();
-        initDataForAPI.generateDataForEmplacement();
-        initDataForAPI.generateDataForReservation();
-    }
-
-
 }

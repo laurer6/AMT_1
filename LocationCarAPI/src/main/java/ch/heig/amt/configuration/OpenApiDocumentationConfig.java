@@ -13,8 +13,8 @@ public class OpenApiDocumentationConfig {
     @Bean
     public OpenAPI springQuotesOpenAPI() {
         return new OpenAPI()
-                .info(new Info().title("Location CAR API")
-                        .description("A samples API for car location")
+                .info(new Info().title("Quotes API")
+                        .description("Quotes sample application")
                         .version("v0.0.1")
                         .license(new License().name("Apache 2.0").url("http://springdoc.org")));
     }
