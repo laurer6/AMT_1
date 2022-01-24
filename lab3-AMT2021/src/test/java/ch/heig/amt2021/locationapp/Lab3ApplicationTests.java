@@ -1,0 +1,13 @@
+package ch.heig.amt2021.locationapp;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
+
+@SpringBootTest
+class Lab3ApplicationTests {
+
+    @Test
+    void contextLoads() {
+    }
+
+}
