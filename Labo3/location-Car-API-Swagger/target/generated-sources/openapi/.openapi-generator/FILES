@@ -1,0 +1,13 @@
+.openapi-generator-ignore
+README.md
+pom.xml
+src/main/java/ch/heig/amt/api/ApiUtil.java
+src/main/java/ch/heig/amt/api/ReservationsApi.java
+src/main/java/ch/heig/amt/api/StationsApi.java
+src/main/java/ch/heig/amt/api/model/Emplacement.java
+src/main/java/ch/heig/amt/api/model/RequestEndReservation.java
+src/main/java/ch/heig/amt/api/model/RequestReservation.java
+src/main/java/ch/heig/amt/api/model/ResponseEndReservation.java
+src/main/java/ch/heig/amt/api/model/ResponseReservation.java
+src/main/java/ch/heig/amt/api/model/Station.java
+src/main/java/ch/heig/amt/api/model/Vehicle.java
