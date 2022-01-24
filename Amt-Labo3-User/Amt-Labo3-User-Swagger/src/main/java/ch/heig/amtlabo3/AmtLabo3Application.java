@@ -2,6 +2,7 @@ package ch.heig.amtlabo3;
 
 import ch.heig.amtlabo3.api.filters.JwtRequestFilter;
 import ch.heig.amtlabo3.api.util.JwtUtil;
+import ch.heig.amtlabo3.configuration.InitDataForAPI;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -11,9 +12,14 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.boot.ExitCodeGenerator;
 
+import javax.annotation.PostConstruct;
+
 @SpringBootApplication
 @ComponentScan(basePackages = { "ch.heig.amtlabo3", "ch.heig.amtlabo3.api" })
 public class AmtLabo3Application implements CommandLineRunner {
+
+    @Autowired
+    private InitDataForAPI initDataForAPI;
 
     @Autowired
     private JwtRequestFilter authFilter;
@@ -44,5 +50,10 @@ public class AmtLabo3Application implements CommandLineRunner {
         public int getExitCode() {
             return 10;
         }
+    }
+
+    @PostConstruct
+    void init() {
+        initDataForAPI.generateDataForUsers();
     }
 }

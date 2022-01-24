@@ -57,8 +57,8 @@ public class UserSteps {
         //id ?
         userAdmin = new User();
         userAdmin.setId(0);
-        userAdmin.setUserName("Kevin");
-        userAdmin.setUserPassword("abcd1234");
+        userAdmin.setUserName("admin");
+        userAdmin.setUserPassword("admin");
         userAdmin.setSolde(BigDecimal.valueOf(100));
         userAdmin.setIsAdmin(true);
         userAdmin.setIsBlocked(false);

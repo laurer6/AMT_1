@@ -1,8 +1,39 @@
 package ch.heig.amtlabo3.Entities;
 
+import lombok.*;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 
+@Getter
+@Setter
+@NoArgsConstructor
+@RequiredArgsConstructor
+@Entity(name = "users")
+public class UserEntity {
+
+    @Id
+    @GeneratedValue
+    private Integer id;
+
+    @NonNull
+    private String userName;
+
+    @NonNull
+    private String userPassword;
+
+    @NonNull
+    private BigDecimal solde;
+
+    @NonNull
+    private Boolean isBlocked;
+
+    @NonNull
+    private Boolean isAdmin;
+
+}
+
+/*
 @Entity(name = "users")
 public class UserEntity {
 
@@ -74,3 +105,4 @@ public class UserEntity {
         isBlocked = blocked;
     }
 }
+ */
