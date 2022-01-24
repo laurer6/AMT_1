@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="21cabbe6-1538-41cc-9873-b3283d806cd1" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../Labo3-User-Swagger-Cucumber/Amt-Labo3-User-Spec/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Labo3-User-Swagger-Cucumber/Amt-Labo3-User-Spec/.mvn/wrapper/maven-wrapper.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Labo3-User-Swagger-Cucumber/Amt-Labo3-User-Spec/.mvn/wrapper/maven-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Labo3-User-Swagger-Cucumber/Amt-Labo3-User-Spec/mvnw" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Labo3-User-Swagger-Cucumber/Amt-Labo3-User-Spec/mvnw.cmd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Labo3-User-Swagger-Cucumber/Amt-Labo3-User-Spec/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Labo3-User-Swagger-Cucumber/Amt-Labo3-User-Spec/src/main/resources/users.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Labo3-User-Swagger-Cucumber/Amt-Labo3-User-Spec/src/test/java/ch/heig/amtlabo3/amtlabo3userspec/SpecificationTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Labo3-User-Swagger-Cucumber/Amt-Labo3-User-Spec/src/test/java/ch/heig/amtlabo3/amtlabo3userspec/steps/UserSteps.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Labo3-User-Swagger-Cucumber/Amt-Labo3-User-Spec/src/test/resources/scenarios/users.feature" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Labo3-User-Swagger-Cucumber/Amt-Labo3-User-Swagger/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Labo3-User-Swagger-Cucumber/Amt-Labo3-User-Swagger/.mvn/wrapper/maven-wrapper.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Labo3-User-Swagger-Cucumber/Amt-Labo3-User-Swagger/.mvn/wrapper/maven-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Labo3-User-Swagger-Cucumber/Amt-Labo3-User-Swagger/mvnw" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Labo3-User-Swagger-Cucumber/Amt-Labo3-User-Swagger/mvnw.cmd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Labo3-User-Swagger-Cucumber/Amt-Labo3-User-Swagger/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Labo3-User-Swagger-Cucumber/Amt-Labo3-User-Swagger/src/main/java/ch/heig/amtlabo3/AmtLabo3Application.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Labo3-User-Swagger-Cucumber/Amt-Labo3-User-Swagger/src/main/java/ch/heig/amtlabo3/Entities/UserEntity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Labo3-User-Swagger-Cucumber/Amt-Labo3-User-Swagger/src/main/java/ch/heig/amtlabo3/OpenApiDocumentationConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Labo3-User-Swagger-Cucumber/Amt-Labo3-User-Swagger/src/main/java/ch/heig/amtlabo3/RFC3339DateFormat.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Labo3-User-Swagger-Cucumber/Amt-Labo3-User-Swagger/src/main/java/ch/heig/amtlabo3/api/OpenAPIConfiguration.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Labo3-User-Swagger-Cucumber/Amt-Labo3-User-Swagger/src/main/java/ch/heig/amtlabo3/api/endpoints/UsersEndpoints.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Labo3-User-Swagger-Cucumber/Amt-Labo3-User-Swagger/src/main/java/ch/heig/amtlabo3/api/exceptions/ApiException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Labo3-User-Swagger-Cucumber/Amt-Labo3-User-Swagger/src/main/java/ch/heig/amtlabo3/api/exceptions/NotFoundException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Labo3-User-Swagger-Cucumber/Amt-Labo3-User-Swagger/src/main/java/ch/heig/amtlabo3/api/exceptions/UserNotFoundException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Labo3-User-Swagger-Cucumber/Amt-Labo3-User-Swagger/src/main/java/ch/heig/amtlabo3/api/filters/JwtRequestFilter.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Labo3-User-Swagger-Cucumber/Amt-Labo3-User-Swagger/src/main/java/ch/heig/amtlabo3/api/models/AuthenticationRequest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Labo3-User-Swagger-Cucumber/Amt-Labo3-User-Swagger/src/main/java/ch/heig/amtlabo3/api/models/AuthenticationResponse.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Labo3-User-Swagger-Cucumber/Amt-Labo3-User-Swagger/src/main/java/ch/heig/amtlabo3/api/util/ApiOriginFilter.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Labo3-User-Swagger-Cucumber/Amt-Labo3-User-Swagger/src/main/java/ch/heig/amtlabo3/api/util/ApiResponseMessage.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Labo3-User-Swagger-Cucumber/Amt-Labo3-User-Swagger/src/main/java/ch/heig/amtlabo3/api/util/JwtRessource.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Labo3-User-Swagger-Cucumber/Amt-Labo3-User-Swagger/src/main/java/ch/heig/amtlabo3/api/util/JwtUtil.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Labo3-User-Swagger-Cucumber/Amt-Labo3-User-Swagger/src/main/java/ch/heig/amtlabo3/configuration/HomeController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Labo3-User-Swagger-Cucumber/Amt-Labo3-User-Swagger/src/main/java/ch/heig/amtlabo3/repositories/UserRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Labo3-User-Swagger-Cucumber/Amt-Labo3-User-Swagger/src/main/resources/application.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Labo3-User-Swagger-Cucumber/Amt-Labo3-User-Swagger/src/main/resources/data.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Labo3-User-Swagger-Cucumber/Amt-Labo3-User-Swagger/src/main/resources/users.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Labo3-User-Swagger-Cucumber/Amt-Labo3-User-Swagger/src/main/resources/users2.yaml" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectId" id="249FJDzE5FjpdacQPuX1j2zGBiT" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/Amt-Labo3-User-Swagger/pom.xml" />
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="21cabbe6-1538-41cc-9873-b3283d806cd1" name="Changes" comment="" />
+      <created>1643034822555</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1643034822555</updated>
+      <workItem from="1643034823868" duration="22000" />
+      <workItem from="1643041061250" duration="29000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>
