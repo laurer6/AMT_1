@@ -1,0 +1,169 @@
+openapi: '3.0.3'
+info:
+  description: API de location de voiture
+  version: '1.0'
+  title: Location car API
+tags:
+  - name: Stations
+    description: Gestions des Stations
+  - name: Réservations
+    description: Gestion des réservations
+paths:
+  /stations:
+    get:
+      tags:
+        - Stations
+      description: Liste toutes les stations
+      operationId: listStationsUsingGET
+      responses:
+        '200':
+          description: OK
+          content:
+            'application/json':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Station'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      deprecated: false
+  /reservations/start:
+    post:
+      security:
+        - bearerAuth: []
+      tags:
+        - Réservations
+      summary: "Faire un réservation"
+      description: "Permet de faire la réservation d'un vehicule"
+      operationId: "reserveVehicle"
+      requestBody:
+        content:
+          'application/json':
+            schema:
+              $ref: '#/components/schemas/RequestReservation'
+      responses:
+        201:
+          description: Confirmed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseReservation'
+  /reservations/end:
+    post:
+      security:
+        - bearerAuth: []
+      tags:
+        - Réservations
+      summary: "Rendre un véhicule"
+      description: "Permettre de rendre un véhicule pour mettre fin à une réservation"
+      operationId: "endReservation"
+      requestBody:
+        content:
+          'application/json':
+            schema:
+              $ref: '#/components/schemas/RequestEndReservation'
+      responses:
+        200:
+          description: Confirmed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseEndReservation'
+components:
+  securitySchemes:
+    bearerAuth: # arbitrary name for the security scheme
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  responses:
+    UnauthorizedError:
+      description: Access token is missing or invalid
+  schemas:
+    Vehicle:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        matricule:
+          type: string
+        categorie:
+          type: string
+          enum:
+            - Berline
+            - Moto
+            - Fourgon
+        minPrice:
+          type: number
+          multipleOf: 0.5
+      title: Vehicle
+    Emplacement:
+      type: object
+      properties:
+        numero:
+          type: integer
+          format: int32
+        statut:
+          type: string
+          enum:
+            - libre
+            - occupé
+            - réservé
+        vehicle:
+          type: array
+          $ref: '#/components/schemas/Vehicle'
+      title: Emplacement
+    Station:
+      type: object
+      properties:
+        address:
+          type: string
+        emplacements:
+          type: array
+          items:
+            $ref: '#/components/schemas/Emplacement'
+      title: Station
+    RequestReservation:
+      type: object
+      properties:
+        vehicleId:
+          type: integer
+          format: int32
+        stationIdDestination:
+          type: integer
+          format: int32
+      title: RequestReservation
+    ResponseReservation:
+      type: object
+      properties:
+        vehicle:
+          $ref: '#/components/schemas/Vehicle'
+        from:
+          type: string
+        to:
+          type: string
+      title: ResponseReservation
+    RequestEndReservation:
+      type: object
+      properties:
+        vehiculeId:
+          type: integer
+          format: int32
+        duration:
+          type: integer
+          format: int32
+    ResponseEndReservation:
+      type: object
+      properties:
+        matriculeVehicle:
+          type: string
+        duration:
+          type: integer
+          format: int32
+        price:
+          type: number
+          multipleOf: 0.5
