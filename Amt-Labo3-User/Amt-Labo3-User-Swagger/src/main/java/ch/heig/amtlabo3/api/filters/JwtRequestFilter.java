@@ -2,6 +2,7 @@ package ch.heig.amtlabo3.api.filters;
 
 
 import ch.heig.amtlabo3.Entities.UserEntity;
+import ch.heig.amtlabo3.api.model.User;
 import ch.heig.amtlabo3.api.models.AuthenticationResponse;
 import ch.heig.amtlabo3.api.util.JwtUtil;
 import ch.heig.amtlabo3.repositories.UserRepository;
@@ -20,13 +21,14 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Component
 public class JwtRequestFilter extends OncePerRequestFilter {
 
-     @Autowired
-     private JwtUtil jwtUtil;
+    @Autowired
+    private JwtUtil jwtUtil;
 
     @Autowired
     private UserRepository userRepository;
@@ -34,24 +36,40 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
-        throws ServletException, IOException{
+            throws ServletException, IOException{
 
         final String authorizationHeader = request.getHeader("Authorization");
 
-        String username = null;
-        String jwt = null;
+        String username;
+        String jwt;
+        boolean isAdmin = false;
+        boolean isUser = false;
 
         try {
             if (authorizationHeader != null && authorizationHeader.startsWith("Bearer")) {
                 jwt = authorizationHeader.substring(7);
                 username = jwtUtil.extractUsername(jwt);
 
-                //List<UserEntity> userEntities = userRepository.findAll();
+                List<UserEntity> userEntities= userRepository.findAll();
 
-                if(!username.contains("ADMIN")){
+                for (UserEntity userEntity : userEntities) {
+                    if(userEntity.getUserName().equals(username)){
+                        isUser = true;
+                        if(userEntity.getIsAdmin()){
+                           isAdmin = true;
+                        }
+                    }
+                }
+
+                if(!isAdmin && !isUser){
+                    response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "bad token");
+                    return;
+                }
+                else if(!isAdmin){
                     response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "not admin");
                     return;
                 }
+
             }
 
             else{

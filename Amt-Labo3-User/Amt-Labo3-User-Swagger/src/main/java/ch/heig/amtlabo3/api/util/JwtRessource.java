@@ -20,6 +20,8 @@ public class JwtRessource {
 
     private String SECRET_KEY = "secret";
 
+    int numReservation = 0;
+
     @Autowired
     private JwtUtil jwtTokenUtil;
 
@@ -34,9 +36,7 @@ public class JwtRessource {
         for (UserEntity userEntity : userEntities) {
             if(userEntity.getUserName().equals(authenticationRequest.getUsername())){
                 if(userEntity.getUserPassword().equals(authenticationRequest.getPassword())) {
-                    String admin = "";
-                    if(userEntity.getIsAdmin()) admin = "ADMIN";
-                    final String tokenJwt = jwtTokenUtil.getToken(authenticationRequest.getUsername() + admin);
+                    final String tokenJwt = jwtTokenUtil.getToken(authenticationRequest.getUsername());
                     return ResponseEntity.ok(new AuthenticationResponse(tokenJwt));
 
                     // final String tokenJwt = Jwts.builder().setSubject(authenticationRequest.getUsername()).setIssuedAt(new Date())
@@ -45,6 +45,27 @@ public class JwtRessource {
             }
         }
 
+        return ResponseEntity.notFound().build();
+    }
+
+    @RequestMapping(value = "/reservation", method = RequestMethod.POST)
+    public ResponseEntity<?> createReservationToken(@RequestBody AuthenticationRequest authenticationRequest) throws Exception {
+
+        List<UserEntity> userEntities = userRepository.findAll();
+
+        for (UserEntity userEntity : userEntities) {
+            if(userEntity.getUserName().equals(authenticationRequest.getUsername())){
+                if(userEntity.getUserPassword().equals(authenticationRequest.getPassword())) {
+
+
+                    final String tokenJwt = jwtTokenUtil.getToken(authenticationRequest.getUsername() + "/solde/" + userEntity.getSolde() + "/code/Ouvert" + "/nRservation/" + numReservation++ );
+                    return ResponseEntity.ok(new AuthenticationResponse(tokenJwt));
+
+                    // final String tokenJwt = Jwts.builder().setSubject(authenticationRequest.getUsername()).setIssuedAt(new Date())
+                    //        .signWith(SignatureAlgorithm.HS256, SECRET_KEY).compact();
+                }
+            }
+        }
         return ResponseEntity.notFound().build();
     }
 }
